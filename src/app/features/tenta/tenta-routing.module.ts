@@ -10,7 +10,7 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: '',
+        path: 'favorites',
         component: FavoritesComponent
       },
       // {
@@ -30,3 +30,5 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class TentaRoutingModule { }
+
+

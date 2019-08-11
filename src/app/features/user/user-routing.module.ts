@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { FavoritesComponent } from './containers/favorites/favorites.component';
 import { LoginComponent } from './containers/login/login.component';
 
-//import { BlogItemPageComponent } from './containers/blog-item-page/blog-item-page.component';
-//import { BlogEditPageComponent } from './containers/blog-edit-page/blog-edit-page.component';
+import { AddItemComponent } from './containers/add-item/add-item.component';
+import { ItemsComponent } from './containers/items/items.component';
+import { ItemsBorrowedComponent } from './containers/items-borrowed/items-borrowed.component';
+import { ProfilComponent } from './containers/profil/profil.component';
+import { ItemsLentComponent } from './containers/items-lent/items-lent.component';
+import { EditProfilComponent } from './containers/edit-profil/edit-profil.component';
+import { FavoritesComponent } from './containers/favorites/favorites.component';
 
 
 const routes: Routes = [
@@ -12,12 +16,32 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: 'favorites',
-        component: FavoritesComponent
+        path: 'adItem',
+        component: AddItemComponent
       },
       {
-        path: 'login',
-        component: LoginComponent
+        path: 'items',
+        component: ItemsComponent
+      },
+      {
+        path: 'itemsBorrowed',
+        component: ItemsBorrowedComponent
+      },
+      {
+        path: 'itemsLent',
+        component: ItemsLentComponent
+      },
+      {
+        path: 'profil',
+        component: ProfilComponent
+      },
+      {
+        path: 'editProfil',
+        component: EditProfilComponent
+      },
+      {
+        path: 'favorites',
+        component: FavoritesComponent
       },
       // {
       //   path: ':id',

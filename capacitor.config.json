@@ -1,0 +1,7 @@
+{
+  "appId": "ch.tenta.nathchab",
+  "appName": "App",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www"
+}

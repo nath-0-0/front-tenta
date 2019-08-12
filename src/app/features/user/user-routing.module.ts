@@ -16,7 +16,7 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: 'adItem',
+        path: 'addItem',
         component: AddItemComponent
       },
       {

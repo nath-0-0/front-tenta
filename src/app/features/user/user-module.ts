@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { UserRoutingModule } from './user-routing.module';
 import { FavoritesComponent } from './containers/favorites/favorites.component';
@@ -11,13 +12,7 @@ import { ItemsLentComponent } from './containers/items-lent/items-lent.component
 import { EditProfilComponent } from './containers/edit-profil/edit-profil.component';
 
 
-// import { UserItemPageComponent } from './containers/blog-item-page/blog-item-page.component';
-
-
-
 import { SharedModule } from 'src/app/shared/shared.module';
-// import { UserEditPageComponent } from './containers/user-edit-page/blog-edit-page.component';
-import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -29,8 +24,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ItemsBorrowedComponent,
     ProfilComponent,
     ItemsLentComponent,
-    EditProfilComponent
-
+    EditProfilComponent,
   ],
   imports: [
     SharedModule,

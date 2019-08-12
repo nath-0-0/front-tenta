@@ -1,0 +1,13 @@
+<input type="file" #fileInput style="visibility: hidden; height: 0px" name="files" (change)="processWebImage($event)" />
+      <ion-row *ngIf="image">
+        <ion-col>
+          <img [src]="image"/>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button (click)="takePicture()">Take Picture</ion-button>
+        </ion-col>
+      </ion-row>
+      
+  

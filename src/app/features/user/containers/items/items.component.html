@@ -1,3 +1,27 @@
-<p>
-  items works!
-</p>
+<ion-grid>
+    <ion-row *ngIf="(items$| async) as items; else noData">
+      <ion-col>
+        <ion-card tappable [routerLink]="item._id" *ngFor="let item of items">
+          <ion-card-header>
+            <ion-card-title color="primary">
+              {{item?.name}}
+              <ion-toggle checked={{item?.enabled}} (ionChange)="toogleEnabled()">
+              </ion-toggle>
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-text>
+                {{item?.name}}
+            </ion-text>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ng-template #noData>
+      <ion-row>
+        <ion-col>
+          <ion-text>no item found...</ion-text>
+        </ion-col>
+      </ion-row>
+    </ng-template>
+  </ion-grid>

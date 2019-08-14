@@ -7,6 +7,9 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+   public user: any;  
+  constructor() {
+    const { user = null} = JSON.parse(localStorage.getItem('ng-auth'));
+  }
 
 }

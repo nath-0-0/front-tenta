@@ -60,7 +60,7 @@ export class AddItemComponent implements OnInit {
       console.log('Error: ', error);
       return;
     }
-    console.log('Success :', post);
+    console.log('Success :', this.form.value);
   }
 
  

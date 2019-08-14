@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/core/service/http.service';
 import { Observable, of } from 'rxjs';
-import { map, tap, find, switchMap } from 'rxjs/operators';
+import { tap, find, switchMap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-items',
@@ -34,7 +34,7 @@ import { map, tap, find, switchMap } from 'rxjs/operators';
         // console.log(this.items$);
       }
 
-      async toogleEnabled(){
+      /*async toogleEnabled(){
         const {error = null, ...post} = await this._http.post({
           param: `/user/${this.user_id}/addItem`,
           body: this.form.value
@@ -47,5 +47,5 @@ import { map, tap, find, switchMap } from 'rxjs/operators';
         }
         console.log('Success :', post);
     
-      }
+      }*/
     }

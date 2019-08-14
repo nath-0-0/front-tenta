@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './containers/login/login.component';
 
 import { AddItemComponent } from './containers/add-item/add-item.component';
 import { ItemsComponent } from './containers/items/items.component';

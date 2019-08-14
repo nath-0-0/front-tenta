@@ -7,7 +7,7 @@ import { tap } from 'rxjs/operators';
 })
 export class HttpService {
 
-  private provider = "http://0.0.0.0:8080/api/v1";  // TOASK variable global?
+  private provider = 'http://0.0.0.0:8080/api/v1';  // TOASK variable global?
   constructor(
     private _http: HttpClient
   ) { }

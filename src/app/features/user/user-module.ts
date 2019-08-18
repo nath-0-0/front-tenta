@@ -3,7 +3,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { UserRoutingModule } from './user-routing.module';
 import { FavoritesComponent } from './containers/favorites/favorites.component';
-import { AddItemComponent } from './containers/add-item/add-item.component';
+import { EditItemComponent } from './containers/edit-item/edit-item.component';
 import { ItemsComponent } from './containers/items/items.component';
 import { ItemsBorrowedComponent } from './containers/items-borrowed/items-borrowed.component';
 import { ProfilComponent } from './containers/profil/profil.component';
@@ -17,7 +17,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 @NgModule({
   declarations: [
     FavoritesComponent,
-    AddItemComponent,
+    EditItemComponent,
     ItemsComponent,
     ItemsBorrowedComponent,
     ProfilComponent,

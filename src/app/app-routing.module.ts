@@ -6,8 +6,8 @@ const routes: Routes = [
   { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
   { path: 'user', loadChildren: () => import('./features/user/user-module').then( m => m.UserModule)},
   { path: 'lend', loadChildren: () => import('./features/lend/lend-module').then( m => m.LendModule)},
-  { path: 'login', loadChildren: () => import('./features/auth/login-module').then( m => m.LoginModule)},
-
+  { path: 'auth', loadChildren: () => import('./features/auth/auth-module').then( m => m.AuthModule)},
+// TOASK une page error
 ];
 
 @NgModule({

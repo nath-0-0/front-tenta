@@ -14,7 +14,7 @@ export class AppAuthGuard implements CanActivate {
   }
 
   private _checkUser(): boolean {
-    const { user = null} = JSON.parse(localStorage.getItem('ng-auth') || '{}');
+    const { user = null} = JSON.parse(localStorage.getItem('auth-token') || '{}');
     if (!user) { return true; }
     this._router.navigate(['index']);
     return false;

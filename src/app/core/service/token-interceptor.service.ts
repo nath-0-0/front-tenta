@@ -6,10 +6,11 @@ import { catchError, map, tap } from 'rxjs/operators';
 @Injectable({providedIn: 'root'})
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor() {}
+  constructor() {
+  }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const storage = localStorage.getItem('authToken');
+    const storage = localStorage.getItem('auth-token');
     if (!storage) {
       return next.handle(request).pipe(
         this._saveToken(),
@@ -19,7 +20,7 @@ export class TokenInterceptor implements HttpInterceptor {
     request = request.clone({
       setHeaders: {
         // TODO: pass storage KEY with environement config
-        Authorization: `${localStorage.getItem('authToken')}`
+        Authorization: `${localStorage.getItem('auth-token')}`
       }
     });
     return next.handle(request).pipe(
@@ -35,10 +36,13 @@ export class TokenInterceptor implements HttpInterceptor {
   private _saveToken() {
     return map((event: HttpEvent<any>) => {
       if (event instanceof HttpResponse) {
-          console.log('event--->>>', event);
-          if (event.body.token) {
-           localStorage.setItem('authToken', event.body.token);
-          }
+        console.log('event--->>>', event);
+        if (event.body.token) {
+          localStorage.setItem('auth-token', event.body.token);
+        }
+        if (event.body.user) {
+          localStorage.setItem('auth-user', JSON.stringify(event.body.user));
+        }
       }
       return event;
     });

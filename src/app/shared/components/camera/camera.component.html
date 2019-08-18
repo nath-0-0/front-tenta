@@ -1,13 +1,27 @@
 <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files" (change)="processWebImage($event)" />
-      <ion-row *ngIf="image">
-        <ion-col>
-          <img [src]="image"/>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <ion-button (click)="takePicture()">Take Picture</ion-button>
-        </ion-col>
-      </ion-row>
+<ion-row *ngIf="image">
+  <ion-col>
+    <img [src]="image"/>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-button (click)="takePicture()">Take Picture</ion-button>
+  </ion-col>
+</ion-row>
       
-  
+ <!-- Generated template for the SmartImagePickerComponent component 
+<input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
+<div class="profile-image-wrapper">
+  <div class="profile-image-placeholder" *ngIf="!imageData" (click)="getPicture()" [ngClass]="{'disabled': disabled}">
+    <ion-icon name="add"></ion-icon>
+    <div>
+      Ajouter une<br>photo
+    </div>
+  </div>
+  <div class="profile-image" [style.backgroundImage]="profileImageStyle" *ngIf="imageData">
+    <div class="camera-button" (click)="getPicture()"><ion-icon name="camera"></ion-icon></div>
+  </div>
+</div> 
+
+-->

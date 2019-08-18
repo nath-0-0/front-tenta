@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../core/service/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,9 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-   public user: any;  
-  constructor() {
-    const { user = null} = JSON.parse(localStorage.getItem('ng-auth'));
+   public user$: Observable<any>;
+  constructor(
+    private authService: AuthService) {
   }
 
 }

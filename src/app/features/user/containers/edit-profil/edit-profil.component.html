@@ -1,3 +1,59 @@
-<p>
-  edit-profil works!
-</p>
+<ion-header>
+    <ion-title>Mon Profil</ion-title>   
+</ion-header>
+  <ion-content>
+    <ion-row *ngIf="(user$ | async) as user;">
+      <form [formGroup]="form"  padding>
+      <ion-avatar>
+          <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+      </ion-avatar>
+      <app-camera></app-camera>       
+      <ion-list>
+        <ion-item>
+          <ion-label floating>Nom</ion-label>
+          <ion-input type="text" formControlName="firstname" [(ngModel)]="user.firstname"></ion-input>
+          
+         
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Prénom</ion-label>
+            <ion-input type="text" formControlName="lastname" [(ngModel)]="user.lastname"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Pseudo</ion-label>
+            <ion-input type="text" formControlName="pseudo" [(ngModel)]="user.pseudo"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Téléphone</ion-label>
+            <ion-input type="text" formControlName="telephone" [(ngModel)]="user.telephone"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Adresse</ion-label>
+            <ion-input type="text" formControlName="address" [(ngModel)]="user.address"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Zip</ion-label>
+            <ion-input type="text" formControlName="zip" [(ngModel)]="user.zip"> </ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>State</ion-label>
+            <ion-input type="text" formControlName="state" > </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-button size="small" (click)="watchPosition()">Watch Position</ion-button>
+            <ion-input type="text" formControlName="state" [(ngModel)]="user.homeLocation.coordinates"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-button type="submit" [disabled]="!form.valid" expand="block"  size="small" (click)="saveUser()" >
+            Save
+          </ion-button>
+        </ion-item>
+      </ion-list>
+    </form>
+    <pre>
+        user {{ user | json}}} <br />
+        position: {{position|json}}
+      </pre>
+    </ion-row>
+  </ion-content>
+  

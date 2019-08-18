@@ -3,8 +3,10 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { emailControl } from '../../../../shared/utils/formValidators';
 import { Router } from '@angular/router';
 import { AuthService} from '../../../../core/service/auth.service';
-import { first } from 'rxjs/operators';
-// import * as bcrypt from 'bcrypt';
+import { HttpService } from 'src/app/core/service/http.service';
+
+
+import { ToastController} from '@ionic/angular';
 
 
 @Component({
@@ -22,7 +24,9 @@ export class LoginComponent implements OnInit {
   constructor(
     private _builder: FormBuilder,
     private _router: Router,
-    private authService: AuthService
+    private _authService: AuthService,
+    private _toast: ToastController,
+    private _http: HttpService
   ) { }
 
   ngOnInit() {
@@ -32,18 +36,47 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  send() {
-    //console.log('form valid->', this.form.valid);
-    //console.log('from form->', this.email.value , this.password);
-    //console.log('from props->', this.email , this.password);
+  async send(btn) {
+    // const user = {
+    //   user: {email: this.email.value , password: this.password.value}
+    // };
+    let auth;
 
-    const user = {
-      user: {email: this.email.value , password: this.password.value}  // ASK pourqupi le wrapper?
-    };
-    // localStorage.setItem('ng-auth', JSON.stringify(user));
-    this.authService.login(user.user).subscribe();
-    this._router.navigate(['home']);
+    if (btn === 'login') {
+      console.log('login');
+      auth = await this._authService.login({email: this.email.value , password: this.password.value}).
+        toPromise().then(res => res).catch(err => err);
+
+    } else {
+      console.log('register');
+      auth = await this._authService.register({email: this.email.value , password: this.password.value}).
+        toPromise().then(res => res).catch(err => err);
+    }
+
+    if (auth === true) {
+            const user:any = this._http.getUser(); // TODO faire mieux
+            if (user.homeLocation.coordinates.lenght === 0 || !user.pseudo) {
+              this._router.navigate(['user/editProfil']);
+            } else {
+              this._router.navigate(['lend/search']);
+            }
+      } else {
+              this.showToast('Utilisateur déjà existant');
+              // console.log(auth.error);
+    }
+
   }
 
+  async showToast(msg: string) {
+    const toast = await this._toast.create({
+      message: msg,
+      closeButtonText: 'Fermer',
+      showCloseButton: true,
+      color: 'danger'
+    });
+    toast.present();
+  }
+
+  
 }
 

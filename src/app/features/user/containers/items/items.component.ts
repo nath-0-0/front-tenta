@@ -10,42 +10,57 @@ import { tap, find, switchMap, map } from 'rxjs/operators';
 })
 
 
-    export class ItemsComponent implements OnInit {
 
-      items$: Observable<any>;
-      constructor(private http: HttpService) { }
 
-      ngOnInit() {
-        this.getItems();
-        // console.log();
-      }
+export class ItemsComponent implements OnInit {
 
-      getItems() {  // 5d3fff60dc91fe4729f39fb3
-        this.items$ = this.http.get('http://0.0.0.0:8080/api/v1/user/5d3fff60dc91fe4729f39fb3/listItem').pipe(
-          map((user: any) => {
-            return user.user.items;
-          })
-        );
-        // TO post$ = (of)coucou   >> rend coucou observable
-        // .pipe(map(i => i.items));
-        // his.items$ = user$
-        // //.pipe(map(i => return i));
-        // this.items$ = user$;
-        // console.log(this.items$);
-      }
+  items$: Observable<any>;
+  constructor(private _http: HttpService) { }
 
-      /*async toogleEnabled(){
-        const {error = null, ...post} = await this._http.post({
-          param: `/user/${this.user_id}/addItem`,
-          body: this.form.value
-        }).pipe(
+  ngOnInit() {
+    this.getItems();
+    console.log(this._http);
+    }
+  // TOASK je prends comment mon iuser?
+  getItems() {  // 5d3fff60dc91fe4729f39fb3
+    this.items$ = this._http.get('/user/5d3fff60dc91fe4729f39fb3/listItem').pipe(
+      map((user: any) => {
+        return user;
+      })
+    );
+  }
+
+  async toogleEnabled(event) {
+
+    console.log(event.detail.value); 
+    const {error = null, ...post} = await this._http.post({
+      param: `/item/5d3fff60dc91fe4729f39fb3/${event.detail.value}`,  //  TOASK
+      body: {} // TOASK je n'arrive pas à modifier qu'un champs
+    }).pipe(
+      tap(data => console.log('data-> ', data))
+    ).toPromise().then((res: any) => res);
+    if (error) {
+      console.log('Error: ', error);
+      return;
+    }
+    console.log('Success :', post);
+  // itemRouter.post('/:user_id/:item_id', updateItemHandler);
+
+  }
+
+async delete(id) {
+        console.log(id);
+        const {error = null, ...del} = await this._http.delete(
+          `/user/5d3fff60dc91fe4729f39fb3/${id}` //  TOASK
+        ).pipe(
           tap(data => console.log('data-> ', data))
         ).toPromise().then((res: any) => res);
         if (error) {
           console.log('Error: ', error);
           return;
         }
-        console.log('Success :', post);
-    
-      }*/
-    }
+        console.log('Success :', del);
+        //userRouter.delete('/:user_id/:item_id', removeItemHandler);
+
+      }
+}

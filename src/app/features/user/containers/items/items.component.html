@@ -1,17 +1,34 @@
+<ion-content  padding>
+
 <ion-grid>
     <ion-row *ngIf="(items$| async) as items; else noData">
       <ion-col>
-        <ion-card tappable [routerLink]="item._id" *ngFor="let item of items">
+        <ion-card  *ngFor="let item of items" >
           <ion-card-header>
+              
             <ion-card-title color="primary">
-              {{item?.name}}
-              <ion-toggle checked={{item?.enabled}} (ionChange)="toogleEnabled()">
-              </ion-toggle>
+                <ion-grid><ion-row>
+                    <ion-col>
+                        <ion-thumbnail tappable [routerLink]="'../item/' + item._id">
+                            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+                        </ion-thumbnail>                      
+                    </ion-col>
+                    <ion-col  tappable [routerLink]="['user',item._id]">{{item?.name}}</ion-col>
+                    <ion-col>
+                        <ion-toggle checked={{item?.enabled}} (ionChange)="toogleEnabled($event)" [value]="item._id" ></ion-toggle>
+                        <ion-button size="small" (click)="delete(item._id)" >
+                          <ion-icon name="close" ></ion-icon>
+                        </ion-button>
+                        <ion-button size="small" (click)="update(item._id)" >
+                            <ion-icon name="create" ></ion-icon>
+                          </ion-button>
+                      </ion-col>                 
+                </ion-row></ion-grid>
             </ion-card-title>
           </ion-card-header>
           <ion-card-content>
             <ion-text>
-                {{item?.name}}
+                {{item?.description}}
             </ion-text>
           </ion-card-content>
         </ion-card>
@@ -25,3 +42,4 @@
       </ion-row>
     </ng-template>
   </ion-grid>
+</ion-content>

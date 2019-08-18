@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AddItemComponent } from './containers/add-item/add-item.component';
+import { EditItemComponent } from './containers/edit-item/edit-item.component';
 import { ItemsComponent } from './containers/items/items.component';
 import { ItemsBorrowedComponent } from './containers/items-borrowed/items-borrowed.component';
 import { ProfilComponent } from './containers/profil/profil.component';
@@ -14,10 +14,6 @@ const routes: Routes = [
   {
     path: '',
     children: [
-      {
-        path: 'addItem',
-        component: AddItemComponent
-      },
       {
         path: 'items',
         component: ItemsComponent
@@ -41,6 +37,10 @@ const routes: Routes = [
       {
         path: 'favorites',
         component: FavoritesComponent
+      },
+      {
+        path: 'item/:id',
+        component: EditItemComponent
       },
       // {
       //   path: ':id',

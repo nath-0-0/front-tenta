@@ -1,4 +1,4 @@
-import { Component,HostListener } from '@angular/core';
+import { Component } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 
@@ -20,16 +20,15 @@ export class CameraComponent {
   ) { }
 
   async takePicture() {
-    console.log('takePicture....');
     const { Camera } = Plugins;
-    console.log('takePicture....');
     const image = await Camera.getPhoto({
       quality: 100,
       allowEditing: false,
       resultType: CameraResultType.DataUrl,
-      source: CameraSource.Camera
+      source: CameraSource.Camera,
+      height: 20
     });
-    console.log('takePicture....');
+
     this.image = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl));
   }
 

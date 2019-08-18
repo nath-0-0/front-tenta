@@ -5,18 +5,20 @@ import { tap } from 'rxjs/operators';
 
 
 @Component({
-  selector: 'app-ad-item-page',
-  templateUrl: './add-item.component.html',
-  styleUrls: ['./add-item.component.scss'],
+  selector: 'app-edit-item-page',
+  templateUrl: './edit-item.component.html',
+  styleUrls: ['./edit-item.component.scss'],
 })
-export class AddItemComponent implements OnInit {
+export class EditItemComponent implements OnInit {
  // pour dev user.id = 5d3fff60dc91fe4729f39fb3
- private user_id = "5d3fff60dc91fe4729f39fb3";
+ user: any;
  public form: FormGroup;
  
   constructor(
     private _http: HttpService
-  ) { }
+  ) { 
+    this.user = this._http.getUser();
+  }
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -47,11 +49,10 @@ export class AddItemComponent implements OnInit {
   async submit() {
     if (!this.form.valid) {
       console.log('not valid');
-      console.log(this.form);
       return;
     }
     const {error = null, ...post} = await this._http.post({
-      param: `/user/${this.user_id}/addItem`,
+      param: `/user/${this.user._id}/addItem`,
       body: this.form.value
     }).pipe(
       tap(data => console.log('data-> ', data))

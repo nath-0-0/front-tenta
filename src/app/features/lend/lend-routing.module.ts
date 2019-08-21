@@ -14,7 +14,7 @@ const routes: Routes = [
         component: SearchComponent
       },
       {
-        path: 'login/:name/:distance',
+        path: 'searchResult/:name/:distance',
         component: SearchResultComponent
       },
       // {

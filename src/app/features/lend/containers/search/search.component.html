@@ -8,21 +8,17 @@
             </div>
             <div padding>
                 <ion-item>
-                  <ion-label>
-                    Name:
-                  </ion-label>
-                  <ion-input formControlName="name" type="text"></ion-input>
+                   <ion-input formControlName="name" type="text" placeholder="Que recherchez-vous?"></ion-input>
                 </ion-item>
+                <div class="error-message" *ngIf="form.get('name').touched && form.get('name').invalid">
+                   name is required</div>
+                   <app-input-message control="form.get('name')" textError="erreur"></app-input-message>
                 <ion-item>
-                  <ion-label>
-                    Dans un rayon de ? autour de moi:
-                  </ion-label>
-                  <ion-textarea formControlName="distance" type="text"></ion-textarea>
+                  <ion-input formControlName="distance" type="text" placeholder="Distance max"></ion-input>
                 </ion-item>
             </div>
             <div padding>
-              <ion-button size="large"  [disabled]="!form.valid" expand="block" 
-              [routerLink]="'../item/' + item._id">
+              <ion-button size="large"  [disabled]="!form.valid" expand="block" (click)="search()">
                 rechercher</ion-button>
              </div>
           </ion-col>

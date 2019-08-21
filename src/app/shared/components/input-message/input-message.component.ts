@@ -8,10 +8,8 @@ import { FormControl } from '@angular/forms';
     })
 export class InputMessageComponent {
 
-  @Input("control")
-  control: any;
+  @Input() control: FormControl;
 
-
-  // TOASK TODO
+  @Input() textError: string;
 
 }

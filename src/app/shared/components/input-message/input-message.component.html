@@ -1,11 +1,9 @@
-<div >{{ control.errors | json}}</div>
-<div class="text-danger" *ngIf="control && control.errors && (control.dirty || control.touched)">
-       
-    <div *ngIf="control.errors.required"><small>This field is required</small></div>
-    <div *ngIf="control.errors.unique"><small>{{control.errors.unique}}</small></div>
-    <div *ngIf="control.errors.minLength"><small>{{control.errors.minLength}}</small></div>
-    <div *ngIf="control.errors.greaterThan"><small>{{control.errors.greaterThan}}</small></div>
-    <div *ngIf="control.errors.email"><small>{{control.errors.email}}</small></div>
-    <div *ngIf="control.errors.mobile"><small>{{control.errors.mobile}}</small></div>
-    <div *ngIf="control.errors.confirmPassword"><small>{{control.errors.confirmPassword}}</small></div>
+
+<div class="error-msg" *ngIf="control.touched && control.invalid">
+  <!--  <div *ngIf="form.get('name').touched && form.get('name').invalid">    
+  <span *ngIf="formControlItem.invalid && (formControlItem.dirty || formControlItem.touched)" class="text-danger">
+  
+  -->  
+        <small>{{ textError }}</small> 
 </div>
+

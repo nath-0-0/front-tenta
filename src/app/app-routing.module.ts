@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'user', loadChildren: () => import('./features/user/user-module').then( m => m.UserModule)},
   { path: 'lend', loadChildren: () => import('./features/lend/lend-module').then( m => m.LendModule)},
   { path: 'auth', loadChildren: () => import('./features/auth/auth-module').then( m => m.AuthModule)},
-  { path: 'footer-menu', loadChildren: './shared/components/footer-menu/footer-menu.module#FooterMenuPageModule' },
+ // { path: 'footer-menu', loadChildren: './shared/components/footer-menu/footer-menu.module#FooterMenuPageModule' },
 // TOASK une page error
 ];
 

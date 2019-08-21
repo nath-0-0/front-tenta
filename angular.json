@@ -22,6 +22,11 @@
             "assets": [
               {
                 "glob": "**/*",
+                "input": "./node_modules/leaflet/dist/images",
+                "output": "leaflet/"
+              },
+              {
+                "glob": "**/*",
                 "input": "src/assets",
                 "output": "assets"
               },
@@ -33,6 +38,9 @@
               "src/manifest.webmanifest"
             ],
             "styles": [
+              {
+                "input": "./node_modules/leaflet/dist/leaflet.css"
+              },
               {
                 "input": "src/theme/variables.scss"
               },
@@ -101,9 +109,18 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "styles": [],
+            "styles": [
+              {
+                "input": "./node_modules/leaflet/dist/leaflet.css"
+             }
+            ],
             "scripts": [],
             "assets": [
+              {
+                "glob": "**/*",
+                "input": "./node_modules/leaflet/dist/images",
+                "output": "leaflet/"
+              },
               {
                 "glob": "favicon.ico",
                 "input": "src/",

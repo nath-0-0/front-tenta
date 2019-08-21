@@ -10,6 +10,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
 
+
 @NgModule({
   declarations: [
     AskToLendComponent,
@@ -21,7 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     SharedModule,
     LendRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ]
 })
 export class LendModule { }

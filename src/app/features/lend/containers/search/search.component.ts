@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -8,9 +10,33 @@ import { SharedModule } from 'src/app/shared/shared.module';
 })
 export class SearchComponent implements OnInit {
 
-  constructor() { }
+  public form: FormGroup;
 
-  ngOnInit() {}
+  constructor(private route: ActivatedRoute, private router: Router) { }
+
+  async ngOnInit() {
+    this.form = new FormGroup({
+      name: new FormControl('',
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(100)
+        ])
+      ),
+      distance: new FormControl('',
+        Validators.compose([
+          Validators.required,
+          // Validators.maxLength(500)
+        ])
+      ),
+    });
+  }
+
+  search() {
+     this.router.navigate(['lend/searchResult', this.form.get('name').value,
+                                                this.form.get('distance').value]);
+
+  }
 
 
 }

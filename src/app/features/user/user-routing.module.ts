@@ -14,6 +14,8 @@ const routes: Routes = [
   {
     path: '',
     children: [
+      { path: 'tabs', loadChildren: './shared/menu-footer/menu-footer.module#MenuFooterModule' },
+ 
       {
         path: 'items',
         component: ItemsComponent

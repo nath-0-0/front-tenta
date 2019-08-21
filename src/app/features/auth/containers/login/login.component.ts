@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { emailControl } from '../../../../shared/utils/formValidators';
 import { Router } from '@angular/router';
 import { AuthService} from '../../../../core/service/auth.service';
@@ -17,8 +17,14 @@ import { ToastController} from '@ionic/angular';
 export class LoginComponent implements OnInit {
 
   email: FormControl = emailControl;
-  password: FormControl = new FormControl('');
+  password: FormControl = new FormControl('',
+  Validators.compose([
+    Validators.required,
+  ])
+);
   form: FormGroup;
+
+
 
 
   constructor(
@@ -56,12 +62,12 @@ export class LoginComponent implements OnInit {
     if (auth === true) {
             const user:any = this._http.getUser(); // TODO faire mieux
             if (user.homeLocation.coordinates.lenght === 0 || !user.pseudo) {
-              this._router.navigate(['user/editProfil']);
+              this._router.navigate(['home']);
             } else {
               this._router.navigate(['lend/search']);
             }
       } else {
-              this.showToast('Utilisateur déjà existant');
+              this.showToast('Utilisateur déjà existant ou mdp/login erronné');
               // console.log(auth.error);
     }
 
@@ -77,6 +83,5 @@ export class LoginComponent implements OnInit {
     toast.present();
   }
 
-  
 }
 

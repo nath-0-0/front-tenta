@@ -15,11 +15,14 @@ export class HttpService {
     private _http: HttpClient
   ) { }
 
-  getUser(){
-    //console.log(localStorage.getItem('auth-user'));
+  getUser() {
+    // console.log(localStorage.getItem('auth-user'));
     this.user = JSON.parse(localStorage.getItem('auth-user'));
+    if (!this.user){
+        console.log('no user');
+    }
     return this.user;
-   
+
   }
 
 

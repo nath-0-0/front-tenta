@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({
   selector: 'app-search',
@@ -10,5 +11,6 @@ export class SearchComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {}
+
 
 }

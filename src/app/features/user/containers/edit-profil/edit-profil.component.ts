@@ -1,3 +1,11 @@
+// TODO  https://stackoverflow.com/questions/52771445/best-way-to-show-error-messages-for-angular-reactive-forms-one-formcontrol-mult
+// https://uploadcare.com/
+// https://github.com/codedamn/social-media-app-ionic4/blob/master/src/app/edit-profile/edit-profile.page.ts
+// TODO https://ionicframework.com/docs/v3/developer-resources/forms/
+// TOASK https://angular.io/api/forms/FormControlName#use-with-ngmodel
+// this.form.get('first').setValue('some value'); et enlever le  [(ngModel)]="value" ?
+
+
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -14,25 +22,19 @@ import { HttpService } from 'src/app/core/service/http.service';
 import { tap, map } from 'rxjs/operators';
 const { Geolocation } = Plugins; // TOASK pourquoi un const dans les import?
 
-// https://uploadcare.com/
-// https://github.com/codedamn/social-media-app-ionic4/blob/master/src/app/edit-profile/edit-profile.page.ts
 @Component({
   selector: 'app-edit-profil',
   templateUrl: './edit-profil.component.html',
   styleUrls: ['./edit-profil.component.scss'],
 })
-
-// TOASK https://angular.io/api/forms/FormControlName#use-with-ngmodel
-// this.form.get('first').setValue('some value'); et enlever le  [(ngModel)]="value" ?
 export class EditProfilComponent implements OnInit {
-  // private form: FormGroup;
   public form: FormGroup;
   email: FormControl = emailControl;
   // password: FormControl = new FormControl('');
   avatar: FormControl = new FormControl('');
   user$: Observable<any>;
   userId: string;
-  public position: any;
+  public position;
 
 
 // TOASK quand mettre les variables dans le constructeur ou en dehors? ici
@@ -41,14 +43,20 @@ export class EditProfilComponent implements OnInit {
     private _router: Router,
     private _toast: ToastController,
     private _http: HttpService,
-
   ) {}
 
-  getUser() {  // 5d3fff60dc91fe4729f39fb3   5d3fff60dc91fe4729f39fb3
+  getUser() {  
+    // get user id
     const userFromlocalStorage: any = this._http.getUser();
     this.userId = userFromlocalStorage._id;
-    console.log('*****userFromlocalStorage._id', this.userId);
-
+    // récupoération position gps user
+    this.position = {
+      coords: {
+        latitude: userFromlocalStorage.homeLocation.coordinates[0],
+        longitude: userFromlocalStorage.homeLocation.coordinates[1]
+      }
+    };
+    // création observable user
     this.user$ = this._http.get(`/user/edit/${this.userId}`).pipe(
       map((user: any) => {
          return user;
@@ -74,7 +82,8 @@ export class EditProfilComponent implements OnInit {
       ),
       pseudo: new FormControl('',
         Validators.compose([
-          Validators.minLength(0),
+          Validators.required,
+          Validators.minLength(4),
           Validators.maxLength(100)
         ])
       ),
@@ -102,7 +111,10 @@ export class EditProfilComponent implements OnInit {
           Validators.maxLength(50)
         ])
       ),
-        avatar: new FormControl(''
+      avatar: new FormControl(''
+      ),
+      coordinates: new FormControl(''
+          // Validators.required,
       )
     });
   }
@@ -110,11 +122,11 @@ export class EditProfilComponent implements OnInit {
 
 
 
- pictureSelected(image) {
-   console.log('newPictureSelected', image.length);
-   // this.user$.avatar = image;
- }
-
+  pictureSelected(image) {
+    console.log('newPictureSelected', image.length);
+    // this.user.profilePicture = image;
+    this.avatar = image;
+  }
   // cancel() {
   //   this.viewCtrl.dismiss();
   // }
@@ -134,25 +146,25 @@ export class EditProfilComponent implements OnInit {
       zip: this.form.value.zip,
       state: this.form.value.state,
       homeLocation: {
-        type: 'Point', coordinates: [this.form.value.coordinates]
+        type: 'Point', coordinates: [this.position.coords.latitude, this.position.coords.longitude]
       }
-      
      // avatar: this.user.avatar,
     };
-  
+    console.log('user.homeLocation', user.homeLocation);
+
     // if (this.form.value.password) {
     //   user.password = this.form.value.password;
     // }
     // TODO modification password
 
- 
-    // if (!this.form.valid) {
-    //   console.log('not valid');
-    //   return;
-    // }
+
+    if (!this.form.valid) {
+      console.log('not valid');
+      return;
+    }
     const {error = null, ...put} = await this._http.put({
       param: `/user/update/${this.userId}`,
-      body: this.form.value
+      body: user,   // this.form.value // TOASK et le body
     }).pipe(
       tap(data => console.log('data-> ', data))
     ).toPromise().then((res: any) => res);
@@ -169,31 +181,36 @@ async showToast(msg: string) { // TOASK en faire un composant??
     message: msg,
     closeButtonText: 'Fermer',
     showCloseButton: true,
-    color: 'danger'
+    color: 'Success'
   });
   toast.present();
 }
 
-watchPosition() {
-  console.log('watchPosition');
-  const wait = Geolocation.watchPosition({}, (position, err) => {
-    console.log(position.coords.latitude, err);
-    this.position = {
-      coords: {
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude
-      }
-    };
-  });
+
+async getCurrentPosition() {
+  const coordinates = await Geolocation.getCurrentPosition();
+  console.log('Current', coordinates);
+  this.position = {
+    coords: {
+      latitude: coordinates.coords.latitude,
+      longitude: coordinates.coords.longitude,
+    }
+  };
+  this.showToast(`Position définie`);
+  }
+
+
+  watchPosition() {
+
+    console.log('watchPosition');
+    const wait = Geolocation.watchPosition({}, (position, err) => {
+      console.log(position.coords.latitude, position.coords.longitude);
+      this.position = {
+        coords: {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude
+        }
+      };
+    });
+  }
 }
-
-}
-
-
-
-
-
-
-
-
-

@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-title>Mon Profil</ion-title>   
+    <app-header title="Mon profil"></app-header>
 </ion-header>
   <ion-content>
     <ion-row *ngIf="(user$ | async) as user;">
@@ -7,13 +7,11 @@
       <ion-avatar>
           <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
       </ion-avatar>
-      <app-camera></app-camera>       
+      <app-camera (pictureSelected)="pictureSelected($event)"></app-camera>       
       <ion-list>
         <ion-item>
           <ion-label floating>Nom</ion-label>
           <ion-input type="text" formControlName="firstname" [(ngModel)]="user.firstname"></ion-input>
-          
-         
         </ion-item>
         <ion-item>
             <ion-label floating>Prénom</ion-label>
@@ -22,6 +20,9 @@
         <ion-item>
             <ion-label floating>Pseudo</ion-label>
             <ion-input type="text" formControlName="pseudo" [(ngModel)]="user.pseudo"></ion-input>
+            <div *ngIf="submitted && form.pseudo.errors" >error
+                <div *ngIf="form.pseudo.errors.required">First Name is required</div>
+            </div>
         </ion-item>
         <ion-item>
             <ion-label floating>Téléphone</ion-label>
@@ -40,19 +41,17 @@
             <ion-input type="text" formControlName="state" > </ion-input>
         </ion-item>
         <ion-item>
-          <ion-button size="small" (click)="watchPosition()">Watch Position</ion-button>
-            <ion-input type="text" formControlName="state" [(ngModel)]="user.homeLocation.coordinates"></ion-input>
+          <ion-button size="small" (click)="getCurrentPosition()">Suis chez moi ici</ion-button>
         </ion-item>
         <ion-item>
-          <ion-button type="submit" [disabled]="!form.valid" expand="block"  size="small" (click)="saveUser()" >
+          <ion-button type="submit"  expand="block"  size="small" (click)="saveUser()" >
             Save
           </ion-button>
         </ion-item>
       </ion-list>
     </form>
     <pre>
-        user {{ user | json}}} <br />
-        position: {{position|json}}
+        position: {{position |json}}
       </pre>
     </ion-row>
   </ion-content>

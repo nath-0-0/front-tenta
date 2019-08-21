@@ -8,6 +8,16 @@
 
 <ion-content>
   <div class="ion-padding">
-    {{ user }}
+      
+    <ion-text color="secondary">
+    <h1>
+        Bonjour, merci d'avopir choisi notre application de partage entre voisin!<br />
+        Vous n'avez pas encore renseigné la position de votre chez vous ainsi que  votre pseudo.<br />
+        Afin de pouvoir utiliser toutes les fonctionalités, veuillez vous rendre sur votre profil et le compléter.<br />
+    </h1>
+    </ion-text>
+    <ion-button  expand="block"  size="large" [routerLink]="'../user/editProfil'" >Compléter le profil</ion-button>
+    <br /><ion-button  expand="block"  size="large" [routerLink]="'../lend/search'"  >Plus tard</ion-button>
+
   </div>
 </ion-content>

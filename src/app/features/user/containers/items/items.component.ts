@@ -11,30 +11,34 @@ import { tap, find, switchMap, map } from 'rxjs/operators';
 
 
 
-
 export class ItemsComponent implements OnInit {
 
+  private user: any;
+
   items$: Observable<any>;
-  constructor(private _http: HttpService) { }
+
+  
+  constructor(private _http: HttpService) { 
+    this.user = this._http.getUser();
+  }
 
   ngOnInit() {
     this.getItems();
-    console.log(this._http);
+
     }
   // TOASK je prends comment mon iuser?
   getItems() {  // 5d3fff60dc91fe4729f39fb3
-    this.items$ = this._http.get('/user/5d3fff60dc91fe4729f39fb3/listItem').pipe(
+    this.items$ = this._http.get(`/user/${this.user._id}/listItem`).pipe(
       map((user: any) => {
         return user;
       })
     );
   }
 
-  async toogleEnabled(event) {
-
+  async toogleEnabled(event) { // pour version 2
     console.log(event.detail.value); 
     const {error = null, ...post} = await this._http.post({
-      param: `/item/5d3fff60dc91fe4729f39fb3/${event.detail.value}`,  //  TOASK
+      param: `/item/${this.user._id}/${event.detail.value}`,  //  TOASK
       body: {} // TOASK je n'arrive pas à modifier qu'un champs
     }).pipe(
       tap(data => console.log('data-> ', data))
@@ -44,14 +48,13 @@ export class ItemsComponent implements OnInit {
       return;
     }
     console.log('Success :', post);
-  // itemRouter.post('/:user_id/:item_id', updateItemHandler);
 
   }
 
 async delete(id) {
         console.log(id);
         const {error = null, ...del} = await this._http.delete(
-          `/user/5d3fff60dc91fe4729f39fb3/${id}` //  TOASK
+          `/user/${this.user._id}/${id}` //  TOASK
         ).pipe(
           tap(data => console.log('data-> ', data))
         ).toPromise().then((res: any) => res);

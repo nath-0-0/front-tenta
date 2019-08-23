@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/core/service/http.service';
 import { Observable, of } from 'rxjs';
-import { tap, find, switchMap, map } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-items',
@@ -16,15 +16,15 @@ export class ItemsComponent implements OnInit {
   private user: any;
 
   items$: Observable<any>;
-
   
   constructor(private _http: HttpService) { 
     this.user = this._http.getUser();
+    console.log('coucou');
   }
 
   ngOnInit() {
     this.getItems();
-
+    console.log('coucou');
     }
   // TOASK je prends comment mon iuser?
   getItems() {  // 5d3fff60dc91fe4729f39fb3
@@ -35,21 +35,7 @@ export class ItemsComponent implements OnInit {
     );
   }
 
-  async toogleEnabled(event) { // pour version 2
-    console.log(event.detail.value); 
-    const {error = null, ...post} = await this._http.post({
-      param: `/item/${this.user._id}/${event.detail.value}`,  //  TOASK
-      body: {} // TOASK je n'arrive pas à modifier qu'un champs
-    }).pipe(
-      tap(data => console.log('data-> ', data))
-    ).toPromise().then((res: any) => res);
-    if (error) {
-      console.log('Error: ', error);
-      return;
-    }
-    console.log('Success :', post);
-
-  }
+  
 
 async delete(id) {
         console.log(id);

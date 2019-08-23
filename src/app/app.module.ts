@@ -8,18 +8,16 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-//import { DemoModalComponent } from './components/demo-modal/demo-modal.component';
 import { CoreModule } from './core/core.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 @NgModule({
   declarations: [
     AppComponent,
- //   DemoModalComponent
   ],
   entryComponents: [
- //   DemoModalComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +26,8 @@ import { environment } from '../environments/environment';
       mode: 'md',
     }),
     AppRoutingModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    LeafletModule.forRoot()
   ],
   providers: [
     StatusBar,

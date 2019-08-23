@@ -12,14 +12,14 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./edit-item.component.scss'],
 })
 
-//TOASK comment recharger la page avec les modifs sur le bouton retour?
+// TOASK comment recharger la page avec les modifs sur le bouton retour?
 export class EditItemComponent implements OnInit {
- // pour dev user.id = 5d3fff60dc91fe4729f39fb3
  private user: any;
  public form: FormGroup;
  item$: Observable<any>;
  public idItem: string = null;
- 
+ private _mode: string; // insert or update
+
   constructor(
     private _http: HttpService,
     private _router: Router,
@@ -53,23 +53,27 @@ export class EditItemComponent implements OnInit {
         enabled: new FormControl(''),
         image: new FormControl('')
     });
-    // assign value to forms
-    const {id = null} = this._route.snapshot.params;
-    this.getItem(id);
-    if (!id) { this._router.navigateByUrl('user/items'); } // TODO insertion
 
-    this.getItem(id);
-    this.idItem = id;
-    //  console.log('item--name ----------', this.item$.name);
-    const i = this.item$.toPromise().then((it: any) => {
-      this.form.get('name').setValue(it.name);
-      this.form.get('description').setValue(it.description);
-      this.form.get('deposit').setValue(it.deposit);
-      this.form.get('enabled').setValue(it.enabled);
-    });
+    const {id = null} = this._route.snapshot.params;
+    if (!id) {
+      // this.item$ = new Observable();
+      // console.log(this.item$);
+      this.form.get('enabled').setValue(true);
+      this._mode = 'insert';
+    } else {
+      this.getItem(id); // TODO sortir une erreur     //   this._router.navigateByUrl('x/fm/items');
+      this.idItem = id;
+      const i = this.item$.toPromise().then((it: any) => {
+        this.form.get('name').setValue(it.name);
+        this.form.get('description').setValue(it.description);
+        this.form.get('deposit').setValue(it.deposit);
+        this.form.get('enabled').setValue(it.enabled);
+      });
+      this._mode = 'update';
+    }
   }
 
-  getItem(id: string) { // TOASK un id bidon pour l'însértion??
+  getItem(id: string) {
    // création observable item
     this.item$ =  this._http.get(`/item/edit/${id}`).pipe(
       map((item: any) => {
@@ -78,16 +82,35 @@ export class EditItemComponent implements OnInit {
     );
   }
 
-
-
-  async submit() {
+  async update() {
     if (!this.form.valid) {
       console.log('not valid');
       return;
     }
     console.log(this.form.value);
+    //if (this.form.value.enabled === '') {this.form.value.enabled = true;}
     const {error = null, ...put} = await this._http.put({
       param: `/item/${this.user._id}/${this.idItem}`, // param: `/user/${this.user._id}/addItem`,
+      body: this.form.value
+    }).pipe(
+      tap(data => console.log('data-> ', data))
+    ).toPromise().then((res: any) => res);
+    if (error) {
+      console.log('Error: ', error);
+      return;
+    }
+    console.log('Success :', this.form.value);
+  }
+
+  async addItem() {
+    console.log('coucou');
+    if (!this.form.valid) {
+      console.log('not valid');
+      return;
+    }
+    console.log(this.form.value);
+    const {error = null, ...post} = await this._http.post({
+      param: `/user/${this.user._id}/addItem`, // userRouter.post('/:user_id/addItem', addItemHandler);
       body: this.form.value
     }).pipe(
       tap(data => console.log('data-> ', data))

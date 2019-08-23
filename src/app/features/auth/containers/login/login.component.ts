@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
 
 
 
-
   constructor(
     private _builder: FormBuilder,
     private _router: Router,
@@ -62,9 +61,9 @@ export class LoginComponent implements OnInit {
     if (auth === true) {
             const user:any = this._http.getUser(); // TODO faire mieux
             if (user.homeLocation.coordinates.lenght === 0 || !user.pseudo) {
-              this._router.navigate(['home']);
+              this._router.navigate(['x/fm/home']);
             } else {
-              this._router.navigate(['lend/search']);
+              this._router.navigate(['x/fm/search']);
             }
       } else {
               this.showToast('Utilisateur déjà existant ou mdp/login erronné');

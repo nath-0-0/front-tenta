@@ -9,7 +9,7 @@
   </ion-col>
 </ion-row>
 
-<ion-row>
+<ion-row *ngIf="takePicture">
   <ion-col>
     <ion-button (click)="takePhoto()">Take Picture</ion-button>
   </ion-col>

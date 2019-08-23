@@ -12,9 +12,11 @@ export class CameraComponent {
 
   @Output()
   public pictureSelected: EventEmitter<string> = new EventEmitter<string>();
+  
+  @Input()
+  private takePicture:boolean = false;
 
   public image: SafeResourceUrl;
-
 
 
   constructor(
@@ -24,39 +26,27 @@ export class CameraComponent {
   async takePhoto() {
     console.log('tackPicture....');
     const { Camera } = Plugins;
-    const image = await Camera.getPhoto({
-      quality: 100,
-      allowEditing: false,
-      resultType: CameraResultType.DataUrl,
-      source: CameraSource.Camera
-    });
-    this.image = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl));
-  }
 
-  async takePicture() {
-    const { Camera } = Plugins;
     const image = await Camera.getPhoto({
       quality: 100,
       allowEditing: false,
-      resultType: CameraResultType.DataUrl,
-      source: CameraSource.Camera,
-      height: 20
-    }).then((data) => {
-      // data = 'data:image/jpg;base64,' + data;
-      this.pictureSelected.emit('data:image/jpg;base64,' + data);
-      // if (this.profilePictureMode) {
-      //   this.imageData = data;
-      // }
+      source: CameraSource.Prompt,
+      resultType: CameraResultType.DataUrl
+    })
+    .then(image => {
+      const base64Image = 'data:image/jpeg;base64,' + image;
+      console.log(base64Image);
+      const imageUrl = image.webPath;
+      this.pictureSelected.emit(base64Image);
+      this.image = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl));
     }, (err) => {
-      // this.showToast(`Un problème est survenu lors de la récupération de l'image.`);
+       this.displayToast(`Un problème est survenu lors de la récupération de l'image.`);
     });
-
-   // this.image = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl));
   }
 
-  async displayToast() {
+  async displayToast(txt) {
     const toast = await Toast.show({
-      text: 'Well done '
+      text: txt
     }).catch(err => err);
     console.log('toast:', toast);
   }

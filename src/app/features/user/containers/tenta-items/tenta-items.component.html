@@ -7,7 +7,7 @@
 <ion-grid>
 <ion-row>
   <ion-col>
-      <ion-button size="small" tappable [routerLink]="['../item']" color="secondary" end>Ajouter un objet
+      <ion-button size="small" tappable [routerLink]="['/x/fm/item']" color="secondary" end>Ajouter un objet
         <ion-icon name="add" ></ion-icon>
       </ion-button>
   </ion-col>
@@ -19,17 +19,17 @@
           <ion-card-title color="primary">
               <ion-grid><ion-row>
                   <ion-col>
-                      <ion-thumbnail tappable [routerLink]="'../item/' + item._id">
+                      <ion-thumbnail>
                           <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
                       </ion-thumbnail>                      
                   </ion-col>
-                  <ion-col  tappable [routerLink]="['user',item._id]">{{item?.name}}</ion-col>
+                  <ion-col  tappable [routerLink]="['/x/fm/item',item._id]">{{item?.name}}</ion-col>
                   <ion-col>
                   <!--  pour 2ème version <ion-toggle checked={{item?.enabled}} (ionChange)="toogleEnabled($event)" [value]="item._id" ></ion-toggle>
                    -->   <ion-button size="small" (click)="delete(item._id)" >
                         <ion-icon name="close" ></ion-icon>
                       </ion-button>
-                      <ion-button size="small" tappable [routerLink]="['../item',item._id]"> 
+                      <ion-button size="small" tappable [routerLink]="['/x/fm/item',item._id]">  
                           <ion-icon name="create" ></ion-icon>
                         </ion-button>
                     </ion-col>                 

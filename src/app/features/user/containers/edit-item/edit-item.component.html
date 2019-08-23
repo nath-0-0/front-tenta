@@ -4,10 +4,10 @@
     </app-header>
   </ion-header>
   <ion-content>
-    <form [formGroup]="form">
+      <ion-list *ngIf="(item$ | async) as item;else insert">
+        <form [formGroup]="form">
 
-      <ion-list *ngIf="(item$ | async) as item;">
-        <ion-item>
+          <ion-item>
             <ion-toggle formControlName="enabled" ></ion-toggle>
         </ion-item> 
         <ion-item>
@@ -29,11 +29,49 @@
             <ion-input formControlName="deposit" type="text"></ion-input>
           </ion-item>
           <ion-item>
-              <app-camera></app-camera>
+              <app-camera (pictureSelected)="pictureSelected($event)" [takePicture]="true">
+
+              </app-camera>
             </ion-item>
+            <ion-button (click)="update()">Update</ion-button>
+          </form>
+ 
       </ion-list>
-      <ion-button (click)="submit()">Submit</ion-button>
-    </form>
+
+      <ng-template #insert>
+        <form [formGroup]="form">
+
+          <ion-list>
+          <ion-item>
+              <ion-toggle formControlName="enabled" ></ion-toggle>
+          </ion-item> 
+          <ion-item>
+            <ion-label>
+              Name:
+            </ion-label>
+            <ion-input formControlName="name" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              Description:
+            </ion-label>
+            <ion-textarea formControlName="description" type="text"></ion-textarea>
+          </ion-item>
+          <ion-item>
+              <ion-label>
+                Deposit:
+              </ion-label>
+              <ion-input formControlName="deposit" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+                <app-camera (pictureSelected)="pictureSelected($event)" [takePicture]="true">
+                  
+                </app-camera>
+              </ion-item>
+        </ion-list>
+        <ion-button (click)="addItem()">Ajouter</ion-button>
+      </form>
+    </ng-template>
     <pre>
       {{form.value|json}}
     </pre>

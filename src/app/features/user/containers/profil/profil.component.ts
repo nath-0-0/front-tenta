@@ -13,6 +13,7 @@ export class ProfilComponent implements OnInit {
   private user: any;
 
   user$: Observable<any>;
+  private profilePicture = '';
 
 //userRouter.get('/edit/:user_id', getUserHandler); 
   constructor(private _http: HttpService) { 
@@ -30,4 +31,6 @@ export class ProfilComponent implements OnInit {
       })
     );
   }
+
+  
 }

@@ -7,8 +7,6 @@
 
 
 import { Component, OnInit } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { ToastController } from '@ionic/angular';
 
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
@@ -119,21 +117,15 @@ export class EditProfilComponent implements OnInit {
     });
   }
 
-
-
-
   pictureSelected(image) {
     console.log('newPictureSelected', image.length);
-    // this.user.profilePicture = image;
     this.avatar = image;
+    console.log(this.avatar);
   }
-  // cancel() {
-  //   this.viewCtrl.dismiss();
-  // }
-
+ 
   async saveUser() { // TOASK un observable pour récupérer les données et une autre variable pour les stocker
     if (!this.form.valid) {
-      return;
+      return; 
     }
     const user: any = {
       _id : this.userId,  // >TOASK comment fait on avec l'user id best practise?
@@ -145,17 +137,13 @@ export class EditProfilComponent implements OnInit {
       adresse: this.form.value.adresse,
       zip: this.form.value.zip,
       state: this.form.value.state,
+      avatar: this.avatar,
       homeLocation: {
         type: 'Point', coordinates: [this.position.coords.latitude, this.position.coords.longitude]
       }
      // avatar: this.user.avatar,
     };
     console.log('user.homeLocation', user.homeLocation);
-
-    // if (this.form.value.password) {
-    //   user.password = this.form.value.password;
-    // }
-    // TODO modification password
 
 
     if (!this.form.valid) {
@@ -186,7 +174,6 @@ async showToast(msg: string) { // TOASK en faire un composant??
   toast.present();
 }
 
-
 async getCurrentPosition() {
   const coordinates = await Geolocation.getCurrentPosition();
   console.log('Current', coordinates);
@@ -213,4 +200,5 @@ async getCurrentPosition() {
       };
     });
   }
+  
 }

@@ -4,7 +4,11 @@
     </app-header>
 </ion-header>
 <ion-content  padding>
-    <div id="mapId" style="width: 100%; height: 70%">
+   
+    <div id="mapId" style="width: 100%; height: 70%"
+      leaflet [leafletOptions]="options" 
+      (leafletMapReady)="onMapReady($event)" 
+      [leafletLayers]="markers">
     </div>
     <div style="width: 100%; height: 30%">
 <!-- --><ion-grid>  
@@ -15,7 +19,7 @@
             <ion-card-title color="primary">
                 <ion-grid><ion-row>
                     <ion-col>
-                        <ion-thumbnail tappable [routerLink]="'../item/' + item._id">
+                        <ion-thumbnail tappable [routerLink]="'/x/fm/item/' + item._id">
                             <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
                         </ion-thumbnail>                      
                     </ion-col>

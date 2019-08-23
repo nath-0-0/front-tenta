@@ -33,7 +33,7 @@ export class SearchComponent implements OnInit {
   }
 
   search() {
-     this.router.navigate(['lend/searchResult', this.form.get('name').value,
+     this.router.navigate(['x/fm/searchResult', this.form.get('name').value,
                                                 this.form.get('distance').value]);
 
   }

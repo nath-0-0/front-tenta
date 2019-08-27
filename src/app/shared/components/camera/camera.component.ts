@@ -12,9 +12,9 @@ export class CameraComponent {
 
   @Output()
   public pictureSelected: EventEmitter<string> = new EventEmitter<string>();
-  
+
   @Input()
-  private takePicture:boolean = false;
+  private takePicture = false;
 
   public image: SafeResourceUrl;
 
@@ -24,21 +24,27 @@ export class CameraComponent {
   ) { }
 
   async takePhoto() {
-    console.log('tackPicture....');
+    console.log('takePicture....');
     const { Camera } = Plugins;
 
     const image = await Camera.getPhoto({
       quality: 100,
       allowEditing: false,
       source: CameraSource.Prompt,
-      resultType: CameraResultType.DataUrl
+      resultType: CameraResultType.Base64
     })
     .then(image => {
-      const base64Image = 'data:image/jpeg;base64,' + image;
-      console.log(base64Image);
-      const imageUrl = image.webPath;
-      this.pictureSelected.emit(base64Image);
-      this.image = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl));
+      // console.log(image);
+      const base64Image = 'data:image/jpeg;base64,' + image.base64String;
+      // console.log(base64Image);
+      // onst imageUrl = image.webPath;
+      this.pictureSelected.emit(image.base64String);
+      //this.image = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl));
+
+       //his.image = this.sanitizer.bypassSecurityTrustResourceUrl(base64Image);
+      this.image = 'data:image/jpg;base64,' +
+        (this.sanitizer.bypassSecurityTrustResourceUrl(image.base64String) as any).changingThisBreaksApplicationSecurity;
+        // console.log('this.image',this.image);
     }, (err) => {
        this.displayToast(`Un problème est survenu lors de la récupération de l'image.`);
     });
@@ -55,8 +61,5 @@ export class CameraComponent {
   toJson(o: any) {
     return JSON.stringify(o, null, 2);
   }
-
-  //    <smart-image-picker (pictureSelected)="pictureSelected($event)"
-  // [imageData]="profilePicture" [profilePictureMode]="true" [pictWidth]="256" [pictHeight]="256"></smart-image-picker>
 
 }

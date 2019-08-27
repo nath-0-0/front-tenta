@@ -1,42 +1,26 @@
-
-
   <ion-tabs>
       <ion-tab-bar slot="bottom">
         <ion-tab-button tab="profil" >
           <ion-icon name="contact"></ion-icon>
           <ion-label>Profil</ion-label>
         </ion-tab-button>
-    
         <ion-tab-button tab="search">
           <ion-icon name="search"></ion-icon>
           <ion-label>look</ion-label>
         </ion-tab-button>
-    
-        
-    
         <ion-tab-button tab="enCours">
           <ion-icon name="bonfire"></ion-icon>
           <ion-label>en cours</ion-label>
         </ion-tab-button>
-
         <ion-tab-button tab="notifications">
             <ion-icon name="notifications"></ion-icon>
             <ion-label>notif</ion-label>
             <ion-badge>6</ion-badge>
         </ion-tab-button>
-
+        <ion-tab-button>
+            <ion-icon name="log-out" (click)= "logout()"></ion-icon>
+            <ion-label>logOut</ion-label>
+        </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
 
-    <!--
-      <ion-tabs class="tabs-icon-top tabs-positive">
-
-    <ion-tab title="Login" icon="ion-home" ui-sref="tabs.login">
-      <ion-nav-view name="login-tab"></ion-nav-view>
-    </ion-tab>
-
-    <ion-tab title="Signup" icon="ion-ios-information" ui-sref="tabs.signup">
-      <ion-nav-view name="signup-tab"></ion-nav-view>
-    </ion-tab>
-  </ion-tabs>
-    -->

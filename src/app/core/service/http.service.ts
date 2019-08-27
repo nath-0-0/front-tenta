@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +28,11 @@ export class HttpService {
 
   get(param: string) {
     return this._http.get(this.provider + param).pipe(
-      tap(res => console.log('http GET response-> ', res))
+      tap(res => console.log('http GET response-> ', res)),
+      // catchError(err => {
+      //   console.log('http GET Error-> ', err);
+      //   return err;
+      // })
     );
   }
 
@@ -39,6 +43,15 @@ export class HttpService {
       tap(res => console.log('http POST response-> ', res))
     );
   }
+
+  putImage({param, body}: {param: string, body: any}) {
+    // post(data: {param: string, body: any}) {
+    // post(param: string, body: any) {
+      return this._http.put(this.provider + param, body,
+        {headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }}).pipe(
+        tap(res => console.log('http PUT response-> ', res))
+      );
+    }
 
   put({param, body}: {param: string, body: any}) {
     // post(data: {param: string, body: any}) {

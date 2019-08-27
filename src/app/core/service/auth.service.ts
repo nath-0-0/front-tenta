@@ -16,6 +16,9 @@ export class AuthService {
   private authState: BehaviorSubject<AuthState>;
   private authState$: Observable<AuthState>;
 
+  private authUser = new BehaviorSubject<any>(null);
+  private authUser$ = this.authUser.asObservable();
+
   constructor(private http: HttpClient) {
     this.authState = new BehaviorSubject(DEFAULT_AUTH_STATE);
     this.authState$ = this.authState.asObservable();

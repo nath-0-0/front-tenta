@@ -1,7 +1,7 @@
 <ion-header>
   <app-header title="Liste des objets disponible au prêt">
-      <ion-back-button slot="start"></ion-back-button>
-  </app-header>
+      <ion-button slot="start" (click)="back()"><ion-icon name="arrow-back"></ion-icon></ion-button>
+    </app-header>
 </ion-header>
 <ion-content  padding>
 <ion-grid>
@@ -26,7 +26,7 @@
                   <ion-col  tappable [routerLink]="['user',item._id]">{{item?.name}}</ion-col>
                   <ion-col>
                   <!--  pour 2ème version <ion-toggle checked={{item?.enabled}} (ionChange)="toogleEnabled($event)" [value]="item._id" ></ion-toggle>
-                   -->   <ion-button size="small" (click)="delete(item._id)" >
+                   --><ion-button size="small" (click)="delete(item._id)" >
                         <ion-icon name="close" ></ion-icon>
                       </ion-button>
                       <ion-button size="small" tappable [routerLink]="['../item',item._id]"> 

@@ -6,16 +6,16 @@ import { RouterModule } from '@angular/router';
 
 import { SearchResultComponent } from './search-result.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ModalPageComponent } from './modal-page/modal-page.component';
 
-import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 @NgModule({
+  entryComponents: [
+    ModalPageComponent
+  ],
   imports: [
-    CommonModule,
     SharedModule,
-    LeafletModule,
     FormsModule,
-    IonicModule,
     RouterModule.forChild([
       {
         path: '',
@@ -23,6 +23,9 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
       }
     ])
   ],
-  declarations: [SearchResultComponent]
+  declarations: [SearchResultComponent, ModalPageComponent],
+  exports: [
+    ModalPageComponent
+  ]
 })
 export class SearchResultModule {}

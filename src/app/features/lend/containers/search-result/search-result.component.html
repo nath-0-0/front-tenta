@@ -1,53 +1,31 @@
 <ion-header>
     <app-header title="Liste des objets disponible au prêt">
-        <ion-back-button slot="start"></ion-back-button>
-    </app-header>
+        <ion-button slot="start" (click)="back()"><ion-icon name="arrow-back"></ion-icon></ion-button>
+      </app-header>
 </ion-header>
 <ion-content  padding>
    
-    <div id="mapId" style="width: 100%; height: 70%"
+   <!-- MAP GOES HERE  <app-map style="height:70%"></app-map>
+    boxshadow : none-->
+   
+   
+   <div id="mapId" style="width: 100%; height: 70%"
       leaflet [leafletOptions]="options" 
       (leafletMapReady)="onMapReady($event)" 
       [leafletLayers]="markers">
     </div>
     <div style="width: 100%; height: 30%">
-<!-- --><ion-grid>  
-    <ion-row *ngIf="(items$| async) as items; else noData">      
+    <ion-grid *ngIf="(items$| async) as items;">  
+    <ion-row *ngFor="let item of items">      
       <ion-col>
-        <ion-card  *ngFor="let item of items" >           
-          <ion-card-header>
-            <ion-card-title color="primary">
-                <ion-grid><ion-row>
-                    <ion-col>
-                        <ion-thumbnail tappable [routerLink]="'/x/fm/item/' + item._id">
-                            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-                        </ion-thumbnail>                      
-                    </ion-col>
-                    <ion-col  tappable [routerLink]="['user',item._id]">{{item?.name}}</ion-col>
-                                
-                </ion-row></ion-grid>
-            </ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <ion-text>
-                {{ item.items[0].name }}
-            </ion-text>
-          </ion-card-content>
-        </ion-card>
+          <ion-item tappable [routerLink]="'/x/fm/item/' + item._id">
+              <ion-label>
+                  {{ item.items[0].name }} mise à dispo par {{ item.pseudo }}
+              </ion-label>
+            </ion-item>
+              <!-- <ion-col  tappable [routerLink]="['user',item._id]">{{item?.name}}</ion-col> -->
       </ion-col>
     </ion-row>
-    <ion-row>
-      <ion-col>
-          
-      </ion-col>
-    </ion-row>
-    <ng-template #noData>
-      <ion-row>
-        <ion-col>
-          <ion-text>no item found...</ion-text>
-        </ion-col>
-      </ion-row>
-    </ng-template>
   </ion-grid>
 </div>
 </ion-content>

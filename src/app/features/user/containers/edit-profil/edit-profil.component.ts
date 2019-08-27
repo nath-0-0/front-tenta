@@ -18,7 +18,7 @@ import { emailControl } from '../../../../shared/utils/formValidators';
 import { Router } from '@angular/router';
 import { HttpService } from 'src/app/core/service/http.service';
 import { tap, map } from 'rxjs/operators';
-const { Geolocation } = Plugins; // TOASK pourquoi un const dans les import?
+const { Geolocation } = Plugins;
 
 @Component({
   selector: 'app-edit-profil',
@@ -29,25 +29,25 @@ export class EditProfilComponent implements OnInit {
   public form: FormGroup;
   email: FormControl = emailControl;
   // password: FormControl = new FormControl('');
-  avatar: FormControl = new FormControl('');
+  avatar: string;
   user$: Observable<any>;
   userId: string;
   public position;
 
 
-// TOASK quand mettre les variables dans le constructeur ou en dehors? ici
   constructor(
+    // tslint:disable-next-line: variable-name
     private _builder: FormBuilder,
     private _router: Router,
     private _toast: ToastController,
     private _http: HttpService,
   ) {}
 
-  getUser() {  
+  getUser() {
     // get user id
     const userFromlocalStorage: any = this._http.getUser();
     this.userId = userFromlocalStorage._id;
-    // récupoération position gps user
+    // récupération position gps user
     this.position = {
       coords: {
         latitude: userFromlocalStorage.homeLocation.coordinates[0],
@@ -109,8 +109,6 @@ export class EditProfilComponent implements OnInit {
           Validators.maxLength(50)
         ])
       ),
-      avatar: new FormControl(''
-      ),
       coordinates: new FormControl(''
           // Validators.required,
       )
@@ -119,16 +117,17 @@ export class EditProfilComponent implements OnInit {
 
   pictureSelected(image) {
     console.log('newPictureSelected', image.length);
-    this.avatar = image;
+    console.log(image);
+    this.avatar = 'data:image/jpeg;base64,' + image;
     console.log(this.avatar);
   }
- 
-  async saveUser() { // TOASK un observable pour récupérer les données et une autre variable pour les stocker
+
+  async saveUser() {
     if (!this.form.valid) {
-      return; 
+      return;
     }
     const user: any = {
-      _id : this.userId,  // >TOASK comment fait on avec l'user id best practise?
+      _id : this.userId,
       email: this.form.value.email,
       lastname: this.form.value.lastname,
       firsttname: this.form.value.firstname,
@@ -143,14 +142,13 @@ export class EditProfilComponent implements OnInit {
       }
      // avatar: this.user.avatar,
     };
-    console.log('user.homeLocation', user.homeLocation);
 
 
     if (!this.form.valid) {
       console.log('not valid');
       return;
     }
-    const {error = null, ...put} = await this._http.put({
+    const {error = null, ...put} = await this._http.putImage({
       param: `/user/update/${this.userId}`,
       body: user,   // this.form.value // TOASK et le body
     }).pipe(
@@ -164,26 +162,26 @@ export class EditProfilComponent implements OnInit {
   }
 
 
-async showToast(msg: string) { // TOASK en faire un composant??
-  const toast = await this._toast.create({
-    message: msg,
-    closeButtonText: 'Fermer',
-    showCloseButton: true,
-    color: 'Success'
-  });
-  toast.present();
-}
+  async showToast(msg: string) { // TODO V2 faire un composant
+    const toast = await this._toast.create({
+      message: msg,
+      closeButtonText: 'Fermer',
+      showCloseButton: true,
+      color: 'Success'
+    });
+    toast.present();
+  }
 
-async getCurrentPosition() {
-  const coordinates = await Geolocation.getCurrentPosition();
-  console.log('Current', coordinates);
-  this.position = {
-    coords: {
-      latitude: coordinates.coords.latitude,
-      longitude: coordinates.coords.longitude,
-    }
-  };
-  this.showToast(`Position définie`);
+  async getCurrentPosition() {
+    const coordinates = await Geolocation.getCurrentPosition();
+    console.log('Current', coordinates);
+    this.position = {
+      coords: {
+        latitude: coordinates.coords.latitude,
+        longitude: coordinates.coords.longitude,
+      }
+    };
+    this.showToast(`Position définie`);
   }
 
 
@@ -200,5 +198,10 @@ async getCurrentPosition() {
       };
     });
   }
-  
+
+   // TODO V2 à améliorer en employant routing angular
+  back() {
+    window.history.back();
+  }
+
 }

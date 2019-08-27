@@ -1,13 +1,12 @@
 <ion-header>
-    <app-header title="Add Item">
-        <ion-back-button slot="start"></ion-back-button>
+    <app-header title="Mon objet au prêt">
+        <ion-button slot="start" (click)="back()"><ion-icon name="arrow-back"></ion-icon></ion-button>
     </app-header>
   </ion-header>
   <ion-content>
       <ion-list *ngIf="(item$ | async) as item;else insert">
-        <form [formGroup]="form">
-
-          <ion-item>
+      <form [formGroup]="form">
+        <ion-item>
             <ion-toggle formControlName="enabled" ></ion-toggle>
         </ion-item> 
         <ion-item>
@@ -27,21 +26,18 @@
               Deposit:
             </ion-label>
             <ion-input formControlName="deposit" type="text"></ion-input>
-          </ion-item>
-          <ion-item>
+        </ion-item>
+        <ion-item>
               <app-camera (pictureSelected)="pictureSelected($event)" [takePicture]="true">
-
               </app-camera>
-            </ion-item>
+        </ion-item>
             <ion-button (click)="update()">Update</ion-button>
-          </form>
- 
+      </form>
       </ion-list>
 
       <ng-template #insert>
         <form [formGroup]="form">
-
-          <ion-list>
+        <ion-list>
           <ion-item>
               <ion-toggle formControlName="enabled" ></ion-toggle>
           </ion-item> 
@@ -65,14 +61,11 @@
             </ion-item>
             <ion-item>
                 <app-camera (pictureSelected)="pictureSelected($event)" [takePicture]="true">
-                  
                 </app-camera>
-              </ion-item>
+            </ion-item>
         </ion-list>
         <ion-button (click)="addItem()">Ajouter</ion-button>
       </form>
     </ng-template>
-    <pre>
-      {{form.value|json}}
-    </pre>
+    
   </ion-content>

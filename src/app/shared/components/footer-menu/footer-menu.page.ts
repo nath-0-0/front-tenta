@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -9,9 +10,15 @@ import { IonicModule } from '@ionic/angular';
 })
 export class FooterMenuPage implements OnInit {
 
-  constructor() { }
+  constructor(private _router: Router) { }
 
   ngOnInit() {
+  }
+
+  logout() {
+    localStorage.setItem('auth-token', null);
+    this._router.navigate(['auth/login']);
+
   }
 
 }

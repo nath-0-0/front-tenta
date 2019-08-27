@@ -88,7 +88,7 @@ export class EditItemComponent implements OnInit {
       return;
     }
     console.log(this.form.value);
-    //if (this.form.value.enabled === '') {this.form.value.enabled = true;}
+    // if (this.form.value.enabled === '') {this.form.value.enabled = true;}
     const {error = null, ...put} = await this._http.put({
       param: `/item/${this.user._id}/${this.idItem}`, // param: `/user/${this.user._id}/addItem`,
       body: this.form.value
@@ -103,7 +103,6 @@ export class EditItemComponent implements OnInit {
   }
 
   async addItem() {
-    console.log('coucou');
     if (!this.form.valid) {
       console.log('not valid');
       return;
@@ -121,5 +120,11 @@ export class EditItemComponent implements OnInit {
     }
     console.log('Success :', this.form.value);
   }
+
+   // TODO V2 à améliorer en employant routing angular
+  back() {
+    window.history.back();
+  }
+
 
 }

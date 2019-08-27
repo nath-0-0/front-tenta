@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 

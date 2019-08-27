@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/core/service/http.service';
 import { Observable, of } from 'rxjs';
 import { tap, find, switchMap, map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profil',
@@ -15,12 +16,17 @@ export class ProfilComponent implements OnInit {
   user$: Observable<any>;
   private profilePicture = '';
 
-//userRouter.get('/edit/:user_id', getUserHandler); 
-  constructor(private _http: HttpService) { 
-    this.user = this._http.getUser(); // TODO TOIMPROVE pas besoin de cahrger 2 fois!
+// userRouter.get('/edit/:user_id', getUserHandler);
+  // tslint:disable-next-line: variable-name
+  constructor(private _http: HttpService,
+              // tslint:disable-next-line: variable-name
+              private _router: Router, ) {
+
+     // TODO TOIMPROVE pas besoin de cahrger 2 fois!
   }
 
   ngOnInit() {
+    this.user = this._http.getUser();
     this.getItems();
 
     }
@@ -32,5 +38,11 @@ export class ProfilComponent implements OnInit {
     );
   }
 
-  
+  logout() {
+    localStorage.setItem('auth-token', null);
+    this._router.navigate(['auth/login']);
+
+  }
+
+
 }

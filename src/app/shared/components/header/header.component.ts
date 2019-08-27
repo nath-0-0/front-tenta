@@ -19,5 +19,7 @@ export class HeaderComponent  {
     this._router.navigateByUrl(url);
   }
 
+  // tslint:disable-next-line: variable-name
   constructor(private _router: Router) {}
+
 }

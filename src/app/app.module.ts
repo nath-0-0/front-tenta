@@ -12,6 +12,7 @@ import { CoreModule } from './core/core.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { AppAuthGuard } from 'src/app-auth.guard';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    AppAuthGuard
   ],
   bootstrap: [AppComponent]
 })

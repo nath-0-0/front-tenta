@@ -14,20 +14,19 @@ import { tap, map } from 'rxjs/operators';
 export class ItemsComponent implements OnInit {
 
   private user: any;
-
   items$: Observable<any>;
-  
-  constructor(private _http: HttpService) { 
+
+  constructor(
+    // tslint:disable-next-line: variable-name
+    private _http: HttpService) {
     this.user = this._http.getUser();
-    console.log('coucou');
   }
 
   ngOnInit() {
     this.getItems();
-    console.log('coucou');
-    }
-  // TOASK je prends comment mon iuser?
-  getItems() {  // 5d3fff60dc91fe4729f39fb3
+  }
+
+  getItems() {
     this.items$ = this._http.get(`/user/${this.user._id}/listItem`).pipe(
       map((user: any) => {
         return user;
@@ -35,9 +34,8 @@ export class ItemsComponent implements OnInit {
     );
   }
 
-  
-
-async delete(id) {
+  // userRouter.delete('/:user_id/:item_id', removeItemHandler);
+  async delete(id) {
         console.log(id);
         const {error = null, ...del} = await this._http.delete(
           `/user/${this.user._id}/${id}` //  TOASK
@@ -49,7 +47,12 @@ async delete(id) {
           return;
         }
         console.log('Success :', del);
-        //userRouter.delete('/:user_id/:item_id', removeItemHandler);
 
-      }
+  }
+
+ // TODO V2 à améliorer en employant routing angular
+  back() {
+    window.history.back();
+  }
+
 }

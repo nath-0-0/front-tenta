@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { FooterMenuPage } from './footer-menu.page';
-import {AppAuthGuard} from 'src/app-auth.guard';
-import {AppNoAuthGuard} from 'src/app-noauth.guard';
+import { AppAuthGuard } from 'src/app-auth.guard';
 
 // coucou
 const routes: Routes = [
@@ -15,7 +14,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-         //   canActivate: [ AppAuthGuard ],
+            canActivate: [ AppAuthGuard ],
             loadChildren: () =>
               import('src/app/home/home.module').then(m => m.HomePageModule)
           }
@@ -87,13 +86,12 @@ const routes: Routes = [
           }
         ]
       },
-    
       {
         path: 'search',
         children: [
           {
             path: '',
-          //  canActivate: [ AppNoAuthGuard ],
+            canActivate: [ AppAuthGuard ],
             loadChildren: () =>
             import('src/app/features/lend/containers/search/search.module').then(m => m.SearchModule)
           }

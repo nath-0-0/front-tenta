@@ -1,0 +1,39 @@
+<ion-header translucent>
+    <ion-toolbar>
+      <ion-title>Détail</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="closeModal()">Fermer</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content  padding>
+     <ion-card>
+        <ion-card-header>
+          <ion-card-title color="primary">Préteur-euse</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          {{ user.pseudo }}
+        </ion-card-content>
+      </ion-card>
+      <ion-grid>
+        <ion-row *ngFor="let item of user.items">
+          <ion-col *ngIf="item.name && item.name.includes(txt)">
+              <ion-card>
+                  <ion-card-header>
+                    <ion-card-title color="primary">{{item?.name}}</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                      <ion-text>
+                          {{item?.description}}
+                      </ion-text>
+                      <ion-button size="small" tappable [routerLink]="['../item',item._id]"> 
+                        Faire une demande
+                      </ion-button>
+                    </ion-card-content>
+              </ion-card>
+              
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      
+  </ion-content>

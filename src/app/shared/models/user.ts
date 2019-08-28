@@ -27,3 +27,13 @@ export interface IUser {
   }[];
   // ajoute t'on dans les propriétés la liste des emrpunts/ prets / objet en emrpunt?
 }
+/*
+notifications: {
+    type : {
+      lend_id : [String],
+      title: {type: String, require: false, minLength: 2, maxLength: 100},
+      date: {type: Number, require: true, default : Date.now},
+      text: {type: String, require: false, minLength: 5, maxLength: 200},
+      contactNotif : {type: String, require: false, minLength: 5, maxLength: 500}
+    },
+  */

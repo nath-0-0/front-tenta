@@ -10,9 +10,7 @@
                 <ion-item>
                    <ion-input formControlName="name" type="text" placeholder="Que recherchez-vous?"></ion-input>
                 </ion-item>
-                <div class="error-message" *ngIf="form.get('name').touched && form.get('name').invalid">
-                   name is required</div>
-                   <app-input-message control="form.get('name')" textError="erreur"></app-input-message>
+                <app-input-message [control]="form.get('name')" textError="le nombre de carcatère doit être entre 2 et 100"></app-input-message>
                 <ion-item>
                   <ion-input formControlName="distance" style="box-shadow: none" type="text" placeholder="Distance max"></ion-input>
                 </ion-item>

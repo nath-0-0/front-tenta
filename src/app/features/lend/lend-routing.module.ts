@@ -22,7 +22,8 @@ const routes: Routes = [
       //   component: BlogItemPageComponent
       // }
     ]
-  }
+  },
+  { path: 'one-ask', loadChildren: './containers/one-ask/one-ask.module#OneAskPageModule' }
 ];
 
 @NgModule({

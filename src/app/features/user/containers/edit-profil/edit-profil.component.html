@@ -10,7 +10,7 @@
       <ion-avatar>
           <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
       </ion-avatar>
-      <app-camera (pictureSelected)="pictureSelected($event)" [takePicture]="true"></app-camera>       
+      <app-camera (pictureSelected)="pictureSelected($event)" [takePicture]="true" ></app-camera>       
       <ion-list>
         <ion-item>
           <ion-label floating>Nom</ion-label>
@@ -53,9 +53,7 @@
         </ion-item>
       </ion-list>
     </form>
-    <pre>
-        position: {{position |json}}
-      </pre>
+    <pre></pre>
     </ion-row>
   </ion-content>
   

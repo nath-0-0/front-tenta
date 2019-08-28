@@ -44,14 +44,6 @@ export class HttpService {
     );
   }
 
-  putImage({param, body}: {param: string, body: any}) {
-    // post(data: {param: string, body: any}) {
-    // post(param: string, body: any) {
-      return this._http.put(this.provider + param, body,
-        {headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }}).pipe(
-        tap(res => console.log('http PUT response-> ', res))
-      );
-    }
 
   put({param, body}: {param: string, body: any}) {
     // post(data: {param: string, body: any}) {

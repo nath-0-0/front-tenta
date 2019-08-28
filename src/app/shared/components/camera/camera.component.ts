@@ -14,14 +14,21 @@ export class CameraComponent {
   public pictureSelected: EventEmitter<string> = new EventEmitter<string>();
 
   @Input()
-  private takePicture = false;
+  public takePicture = false;
+
+  // @Input()
+  // public imageIn: string;
 
   public image: SafeResourceUrl;
 
-
   constructor(
     private sanitizer: DomSanitizer,
-  ) { }
+  ) { 
+      // if (this.imageIn){
+      //   this.image = 'data:image/jpg;base64,' +
+      //   (this.sanitizer.bypassSecurityTrustResourceUrl(this.imageIn) as any).changingThisBreaksApplicationSecurity;
+      // }
+  }
 
   async takePhoto() {
     console.log('takePicture....');
@@ -34,17 +41,10 @@ export class CameraComponent {
       resultType: CameraResultType.Base64
     })
     .then(image => {
-      // console.log(image);
       const base64Image = 'data:image/jpeg;base64,' + image.base64String;
-      // console.log(base64Image);
-      // onst imageUrl = image.webPath;
       this.pictureSelected.emit(image.base64String);
-      //this.image = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl));
-
-       //his.image = this.sanitizer.bypassSecurityTrustResourceUrl(base64Image);
       this.image = 'data:image/jpg;base64,' +
         (this.sanitizer.bypassSecurityTrustResourceUrl(image.base64String) as any).changingThisBreaksApplicationSecurity;
-        // console.log('this.image',this.image);
     }, (err) => {
        this.displayToast(`Un problème est survenu lors de la récupération de l'image.`);
     });
@@ -54,7 +54,6 @@ export class CameraComponent {
     const toast = await Toast.show({
       text: txt
     }).catch(err => err);
-    console.log('toast:', toast);
   }
 
 

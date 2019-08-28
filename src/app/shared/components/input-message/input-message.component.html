@@ -1,9 +1,9 @@
 
-<div class="error-msg" *ngIf="control.touched && control.invalid">
+<div  style="color:red;font-style: italic" *ngIf="!control.pristine && control.invalid">
   <!--  <div *ngIf="form.get('name').touched && form.get('name').invalid">    
   <span *ngIf="formControlItem.invalid && (formControlItem.dirty || formControlItem.touched)" class="text-danger">
   
   -->  
-        <small>{{ textError }}</small> 
+       {{ textError }}
 </div>
 

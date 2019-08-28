@@ -26,9 +26,11 @@
                       <ion-text>
                           {{item?.description}}
                       </ion-text>
-                      <ion-button size="small" tappable [routerLink]="['../item',item._id]"> 
+                      <ion-button size="small" tappable (click)="ask(item._id)"> 
                         Faire une demande
                       </ion-button>
+                      <!-- lendRouter.post('/:borrower_id/:lender_id/:item_id', authMiddleware, askLendHandler); // TODO add validate for item_id -->
+
                     </ion-card-content>
               </ion-card>
               

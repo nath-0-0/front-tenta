@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/core/service/http.service';
 import { Observable, of } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
+import { ItemsService } from '../../services/items/items.service';
 
 @Component({
   selector: 'app-items',
@@ -18,7 +19,9 @@ export class ItemsComponent implements OnInit {
 
   constructor(
     // tslint:disable-next-line: variable-name
-    private _http: HttpService) {
+    private _http: HttpService,
+    private _itemsService: ItemsService
+  ) {
     this.user = this._http.getUser();
   }
 
@@ -27,7 +30,8 @@ export class ItemsComponent implements OnInit {
   }
 
   getItems() {
-    this.items$ = this._http.get(`/user/${this.user._id}/listItem`).pipe(
+    this.items$ = this._itemsService.get(`/user/${this.user._id}/listItem`).pipe(
+    // this.items$ = this._http.get(`/user/${this.user._id}/listItem`).pipe(
       map((user: any) => {
         return user;
       })

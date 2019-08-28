@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./profil.component.scss'],
 })
 export class ProfilComponent implements OnInit {
+     // TODO V2 amliorer stockage user
 
   private user: any;
 
@@ -22,7 +23,6 @@ export class ProfilComponent implements OnInit {
               // tslint:disable-next-line: variable-name
               private _router: Router, ) {
 
-     // TODO TOIMPROVE pas besoin de cahrger 2 fois!
   }
 
   ngOnInit() {
@@ -41,7 +41,6 @@ export class ProfilComponent implements OnInit {
   logout() {
     localStorage.setItem('auth-token', null);
     this._router.navigate(['auth/login']);
-
   }
 
 

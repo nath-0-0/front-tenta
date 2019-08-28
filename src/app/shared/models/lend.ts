@@ -4,9 +4,9 @@ import { IItem } from './item';
 export interface ILend {
     _id: string;
     item: IItem; // pour l'historique, celui ci peut apparait donc encore si l'objet n'existe plus
-    dateFrom: number;
-    dateTo: number;
-    dateAsk: number;
+    dateFrom: Date;
+    dateTo: Date;
+    dateAsk: Date;
     isDamaged: boolean;
     isLate: boolean;
     accepted: {ask: boolean, message: string}; //  ask askOk Out refused history (confirmIn) --> 7 jours après History

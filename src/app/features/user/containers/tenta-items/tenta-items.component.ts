@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/core/service/http.service';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { ItemsService } from '../../services/items/items.service';
 
 
 @Component({
@@ -15,7 +16,8 @@ export class TentaItemsComponent implements OnInit {
 
     items$: Observable<any>;
 
-    constructor(private _http: HttpService) {
+    constructor(private _http: HttpService,
+                private _itemsService: ItemsService) {
       this.user = this._http.getUser();
     }
 
@@ -24,11 +26,12 @@ export class TentaItemsComponent implements OnInit {
     }
 
     getItems() {  // 5d3fff60dc91fe4729f39fb3
-      this.items$ = this._http.get(`/user/${this.user._id}/listItem`).pipe(
-        map((user: any) => {
-          return user;
-        })
-      );
+      this.items$ = this._itemsService.get(`/user/${this.user._id}/listItem`).pipe(
+        // this.items$ = this._http.get(`/user/${this.user._id}/listItem`).pipe(
+          map((user: any) => {
+            return user;
+          })
+        );
     }
 
 

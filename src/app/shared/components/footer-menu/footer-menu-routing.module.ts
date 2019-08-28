@@ -21,13 +21,13 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'favorites',
+        path: 'notifs',
         children: [
           {
             path: '',
         //    canActivate: [ AppAuthGuard ],
             loadChildren: () =>
-              import('src/app/features/user/containers/favorites/favorites.module').then(m => m.FavoritesModule)
+              import('src/app/features/user/containers/notif/notif.module').then(m => m.NotifPageModule)
           }
         ]
       },
@@ -69,7 +69,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-          //  canActivate: [ AppAuthGuard ],
+        //    canActivate: [ AppAuthGuard ],
             loadChildren: () =>
             import('src/app/features/user/containers/edit-item/edit-item.module').then(m => m.EditItemModule)
           }
@@ -80,7 +80,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-          //  canActivate: [ AppAuthGuard ],
+        //    canActivate: [ AppAuthGuard ],
             loadChildren: () =>
             import('src/app/features/user/containers/edit-item/edit-item.module').then(m => m.EditItemModule)
           }
@@ -91,7 +91,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            canActivate: [ AppAuthGuard ],
+      //      canActivate: [ AppAuthGuard ],
             loadChildren: () =>
             import('src/app/features/lend/containers/search/search.module').then(m => m.SearchModule)
           }
@@ -102,9 +102,20 @@ const routes: Routes = [
         children: [
           {
             path: '',
-         //   canActivate: [ AppAuthGuard ],
+            canActivate: [ AppAuthGuard ],
             loadChildren: () =>
             import('src/app/features/lend/containers/search-result/search-result.module').then(m => m.SearchResultModule)
+          }
+        ]
+      },
+      {
+        path: 'askToLend/:borrower_id/:lender_id/:item_id',
+        children: [
+          {
+            path: '',
+     //       canActivate: [ AppAuthGuard ],
+            loadChildren: () =>
+            import('src/app/features/lend/containers/ask-to-lend/ask-to-lend.module').then(m => m.AskToLendModule)
           }
         ]
       },

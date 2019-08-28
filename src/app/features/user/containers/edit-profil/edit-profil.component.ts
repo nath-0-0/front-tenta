@@ -1,11 +1,9 @@
-// TODO  https://stackoverflow.com/questions/52771445/best-way-to-show-error-messages-for-angular-reactive-forms-one-formcontrol-mult
 // https://uploadcare.com/
 // https://github.com/codedamn/social-media-app-ionic4/blob/master/src/app/edit-profile/edit-profile.page.ts
-// TODO https://ionicframework.com/docs/v3/developer-resources/forms/
-// TOASK https://angular.io/api/forms/FormControlName#use-with-ngmodel
-// this.form.get('first').setValue('some value'); et enlever le  [(ngModel)]="value" ?
-
-
+// https://ionicframework.com/docs/v3/developer-resources/forms/
+// TODO V2 (fait correctement dans item) this.form.get('first').setValue('some value'); et enlever le  [(ngModel)]="value" ?
+// TODO V2 ajouter un quartier comme propriété du user
+// TODO V2 bouton save disabled si définition coord et enabled une fois que c'est défini
 import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 
@@ -118,7 +116,7 @@ export class EditProfilComponent implements OnInit {
   pictureSelected(image) {
     console.log('newPictureSelected', image.length);
     console.log(image);
-    this.avatar = 'data:image/jpeg;base64,' + image;
+    this.avatar = image;
     console.log(this.avatar);
   }
 
@@ -148,7 +146,7 @@ export class EditProfilComponent implements OnInit {
       console.log('not valid');
       return;
     }
-    const {error = null, ...put} = await this._http.putImage({
+    const {error = null, ...put} = await this._http.put({
       param: `/user/update/${this.userId}`,
       body: user,   // this.form.value // TOASK et le body
     }).pipe(

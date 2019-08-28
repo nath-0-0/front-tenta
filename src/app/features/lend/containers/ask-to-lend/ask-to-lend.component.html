@@ -1,3 +1,69 @@
-<p>
-  ask-to-lend works!
-</p>
+<ion-header>
+    <app-header title="Demande d'emprunt">
+        <ion-button slot="start" (click)="back()"><ion-icon name="arrow-back"></ion-icon></ion-button>
+    </app-header>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+  <ion-card-header>
+     <ion-card-title color="primary">                                   
+        {{ item?.title }}
+    </ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="4">
+            <ion-thumbnail>
+                <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+            </ion-thumbnail>   
+        </ion-col>
+        <ion-col>
+            <ion-text>
+                {{item?.description}}<br />
+                caution : {{item?.caution}}
+            </ion-text>  
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-content>
+</ion-card>
+
+<ion-grid>
+  <form [formGroup]="form">
+  <ion-row>
+    <ion-col>
+        Vous voulez emprunter l'objet ci-dessus, veuillez indiquer les dates !
+    </ion-col>
+  </ion-row>
+  <ion-row>
+      <ion-col>
+          <ion-item>
+              <ion-label>Début</ion-label>
+              <ion-datetime formControlName="dateFrom" displayFormat="DD MM YY" placeholder="Select Date"></ion-datetime>
+            </ion-item>            
+      </ion-col>
+  </ion-row>
+  <ion-row>
+      <ion-col>
+          <ion-item>
+              <ion-label>Fin</ion-label>
+              <ion-datetime formControlName="dateTo" displayFormat="DD MM YY" placeholder="Select Date"></ion-datetime>
+            </ion-item>            
+      </ion-col>
+    </ion-row>
+    <ion-row>    
+      <ion-col>
+          <ion-textarea formControlName="message" placeholder="vous pouvez accompagner votre demande d'un message" type="text"></ion-textarea>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+          <ion-button (click)="save()">Envoyer ma demande</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+  </ion-grid>
+  <ion-button (click)="save()">Ajouter</ion-button>
+</ion-content>>

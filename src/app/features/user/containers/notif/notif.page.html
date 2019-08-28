@@ -1,0 +1,48 @@
+<ion-header>
+    <app-header title="Liste de vos notificationst">
+        <ion-back-button slot="start"></ion-back-button>
+    </app-header>
+  </ion-header>
+  <ion-content  padding>
+  <ion-grid>
+    <ion-row *ngIf="(notifs$| async) as notifs; else noData">
+      <ion-col>
+        
+        <ion-card  *ngFor="let notif of notifs" >
+          <ion-card-header>
+            <ion-card-title color="primary">
+                <ion-grid>
+                  <ion-row>
+                    <ion-col size="10">
+                        {{ notif?.date }}&nbsp;{{ notif?.title }}                  
+                    </ion-col>
+                    <ion-col size="2">
+                       <ion-button size="small" (click)="delete(notif._id)" >
+                          <ion-icon name="close" ></ion-icon>
+                        </ion-button>
+                    </ion-col>                 
+                  </ion-row>
+                </ion-grid>
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-text>
+                 x{{notif?.text}}<br />
+                <ion-button size="small" tappable [routerLink]="['/x/fm/notif',notif._id]">  
+                  Voir la demande
+                </ion-button>
+            </ion-text>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+  </ion-row>
+  <ng-template #noData>
+      <ion-row>
+        <ion-col>
+          <ion-text>no notif found...</ion-text>
+        </ion-col>
+      </ion-row>
+  </ng-template>
+  </ion-grid>
+  </ion-content>
+  

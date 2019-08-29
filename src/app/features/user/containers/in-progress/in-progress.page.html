@@ -1,9 +1,72 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>inProgress</ion-title>
-  </ion-toolbar>
+    <app-header title="En cours">
+        <ion-button slot="start" (click)="back()"><ion-icon name="arrow-back"></ion-icon></ion-button>
+    </app-header>
 </ion-header>
 
 <ion-content>
+  <ion-grid >
+   <ion-row *ngIf="(lends$| async) as lends; else noData">
+     <ion-col>
 
+  <ion-card *ngFor="let lend of lends">
+  <ion-card-header>
+     <ion-card-title color="primary" tappable [routerLink]="['/x/fm/oneAsk',lend._id,lend?.item?.item_id]">                                   
+        Voici une demande pour {{ lend?.dateFrom | date:'fullDate' }} 
+        au {{ lend?.dateTo | date:'fullDate' }}
+    </ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngIf="lend?.accepted?.ask == '1';else noClick">
+            <ion-avatar (click)="personneAlert(lend?.userB)">
+                <ion-label >{{ lend?.userB[0]?.pseudo }}</ion-label>
+                <img [src]="lend?.userB[0]?.avatar ? lend?.userB[0]?.avatar : 'https://i.imgur.com/9HJtn5yt.png'">
+            </ion-avatar>   
+        </ion-col>
+        <ng-template #noClick>
+            <ion-col >
+                <ion-avatar >
+                    <ion-label >{{ lend?.userB[0]?.pseudo }}</ion-label>
+                    <img [src]="lend?.userB[0]?.avatar ? lend?.userB[0]?.avatar : 'https://i.imgur.com/9HJtn5yt.png'">
+                </ion-avatar>   
+            </ion-col>
+          </ng-template>
+        <ion-col>
+          <ion-thumbnail>
+              <img src="../../../../../assets/images/arrow.png">              
+          </ion-thumbnail>
+        </ion-col>
+        <ion-col>
+          <ion-avatar>
+              <ion-label>you</ion-label>
+              <img [src]="user?.avatar">
+          </ion-avatar>  
+        </ion-col>           
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-text>
+              <br />{{lend?.message}}
+          </ion-text>  
+      </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-content>
+  
+       
+   
+</ion-card>
+<ng-template #noData>
+    <ion-row>
+      <ion-col>
+        <ion-text>no item found...</ion-text>
+      </ion-col>
+    </ion-row>
+  </ng-template>
+</ion-col>
+</ion-row> 
+</ion-grid>
 </ion-content>
+

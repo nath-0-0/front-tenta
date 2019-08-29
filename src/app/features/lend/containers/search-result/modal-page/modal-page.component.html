@@ -12,7 +12,11 @@
           <ion-card-title color="primary">Préteur-euse</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          {{ user.pseudo }}
+          
+          <ion-avatar>
+              <ion-label>{{ user.pseudo }}</ion-label>
+              <img [src]="user?.avatar ? user?.avatar : 'https://i.imgur.com/9HJtn5y.png' ">
+          </ion-avatar>
         </ion-card-content>
       </ion-card>
       <ion-grid>
@@ -23,6 +27,9 @@
                     <ion-card-title color="primary">{{item?.name}}</ion-card-title>
                   </ion-card-header>
                   <ion-card-content>
+                      <ion-thumbnail>
+                          <img [src]="item?.image ? item?.image : 'https://i.imgur.com/YKPFuaft.png'" />
+                      </ion-thumbnail>
                       <ion-text>
                           {{item?.description}}
                       </ion-text>

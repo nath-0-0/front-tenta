@@ -165,7 +165,9 @@ export class EditProfilComponent implements OnInit {
       message: msg,
       closeButtonText: 'Fermer',
       showCloseButton: true,
-      color: 'Success'
+      color: 'Success',
+      duration: 2000,
+      position: 'middle',
     });
     toast.present();
   }

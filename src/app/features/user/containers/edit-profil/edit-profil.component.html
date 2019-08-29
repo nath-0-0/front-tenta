@@ -5,11 +5,10 @@
     </app-header>
 </ion-header>
   <ion-content>
+    <ion-grid>
     <ion-row *ngIf="(user$ | async) as user;">
-      <form [formGroup]="form"  padding>
-      <ion-avatar>
-          <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-      </ion-avatar>
+      <ion-col>
+      <form [formGroup]="form"  padding>   
       <app-camera (pictureSelected)="pictureSelected($event)" [takePicture]="true" ></app-camera>       
       <ion-list>
         <ion-item>
@@ -54,6 +53,8 @@
       </ion-list>
     </form>
     <pre></pre>
+    </ion-col>
     </ion-row>
+  </ion-grid>
   </ion-content>
   

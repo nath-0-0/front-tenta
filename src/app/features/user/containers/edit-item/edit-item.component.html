@@ -28,7 +28,7 @@
             <ion-input formControlName="deposit" type="text"></ion-input>
         </ion-item>
         <ion-item>
-              <app-camera (pictureSelected)="pictureSelected($event)" [takePicture]="true">
+              <app-camera (pictureSelected)="pictureSelected($event)" [takePicture]="true" mode="thumb" >
               </app-camera>
         </ion-item>
             <ion-button (click)="update()">Update</ion-button>
@@ -60,7 +60,7 @@
               <ion-input formControlName="deposit" type="text"></ion-input>
             </ion-item>
             <ion-item>
-                <app-camera (pictureSelected)="pictureSelected($event)" [takePicture]="true">
+                <app-camera (pictureSelected)="pictureSelected($event)" [takePicture]="true" mode="thumb">
                 </app-camera>
             </ion-item>
         </ion-list>

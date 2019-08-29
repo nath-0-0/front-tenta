@@ -36,16 +36,25 @@ export class TentaItemsComponent implements OnInit {
 
 
   async delete(id) {
-    const {error = null, ...del} = await this._http.delete(
-      `/user/${this.user._id}/${id}` //  TOASK
-    ).pipe(
+    console.log(id);
+    const {error = null, ...del} = await this._itemsService.delete(`/user/${this.user._id}/${id}`).pipe(
       tap(data => console.log('data-> ', data))
     ).toPromise().then((res: any) => res);
     if (error) {
       console.log('Error: ', error);
       return;
-    }
-    console.log('Success :', del);
+    };
+
+    // const {error = null, ...del} = await this._http.delete(
+    //   `/user/${this.user._id}/${id}`
+    // ).pipe(
+    //   tap(data => console.log('data-> ', data))
+    // ).toPromise().then((res: any) => res);
+    // if (error) {
+    //   console.log('Error: ', error);
+    //   return;
+    // }
+    console.log('Success delet :', del);
     // userRouter.delete('/:user_id/:item_id', removeItemHandler);
   }
 

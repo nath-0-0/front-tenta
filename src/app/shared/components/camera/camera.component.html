@@ -1,11 +1,17 @@
 <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files" (change)="processWebImage($event)" />
-
-<ion-row *ngIf="image" style="padding: 10px">
-    <ion-col>
+<ion-grid >
+<ion-row style="text-align: center" >
+    <ion-col *ngIf="mode ==='avatar'">
     <ion-avatar class="image" style="margin:0 auto;align-items: center">
-        <img [src]="image"/>
+        <img [src]="image ? image : 'https://i.imgur.com/9HJtn5yt.png'"/>
        <!--  <img  src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"><br /> !-->
      </ion-avatar>     
+  </ion-col>
+  <ion-col *ngIf="mode ==='thumb'">
+      <ion-thumbnail style="height: 80px;width: 80px">
+            <img [src]="image ? image : 'https://i.imgur.com/YKPFuaf.png'"/>
+         <!--  <img  src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"><br /> !-->
+       </ion-thumbnail>     
   </ion-col>
 </ion-row>
 
@@ -14,7 +20,7 @@
     <ion-button (click)="takePhoto()">Take Picture</ion-button>
   </ion-col>
 </ion-row>
-      
+</ion-grid>      
  <!-- Generated template for the SmartImagePickerComponent component 
 <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
 <div class="profile-image-wrapper">

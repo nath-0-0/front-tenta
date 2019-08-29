@@ -77,7 +77,8 @@ export class LoginComponent implements OnInit {
       message: msg,
       closeButtonText: 'Fermer',
       showCloseButton: true,
-      color: 'danger'
+      color: 'danger',
+      duration: 2000
     });
     toast.present();
   }

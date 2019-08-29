@@ -16,6 +16,9 @@ export class CameraComponent {
   @Input()
   public takePicture = false;
 
+  @Input()
+  public mode ='avatar'; // or thumb
+
   // @Input()
   // public imageIn: string;
 

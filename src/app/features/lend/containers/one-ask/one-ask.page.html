@@ -1,9 +1,114 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>oneAsk</ion-title>
-  </ion-toolbar>
+    <app-header title="Demande d'emprunt">
+        <ion-button slot="start" (click)="back()"><ion-icon name="arrow-back"></ion-icon></ion-button>
+    </app-header>
 </ion-header>
 
 <ion-content>
+    <ion-card *ngIf="(item$| async) as item; else noData">
+        <ion-card-header>
+           <ion-card-title color="primary">                                   
+              On voudrait vous emprunter :<br />{{ item?.name }}
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="4">
+                  <ion-thumbnail >
+                      <img [src]="item?.image ? item?.image : 'https://i.imgur.com/YKPFuaft.png'" />
+                  </ion-thumbnail> 
+              </ion-col>
+              <ion-col>
+                  <ion-text>
+                      {{item?.description}}<br />
+                      caution : {{item?.desposit}}
+                  </ion-text>  
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>      
 
+  <ion-card *ngIf="(lend$| async) as lend; else noData">
+  <ion-card-header>
+     <ion-card-title color="primary">                                   
+        Voici une demande pour {{ lend?.dateFrom | date:'fullDate' }} 
+        au {{ lend?.dateTo | date:'fullDate' }}
+    </ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngIf="lend?.accepted?.ask == '1';else noClick">
+            <ion-avatar (click)="personneAlert(lend?.userB)">
+                <ion-label >{{ lend?.userB[0]?.pseudo }}</ion-label>
+                <img [src]="lend?.userB[0]?.avatar ? lend?.userB[0]?.avatar : 'https://i.imgur.com/9HJtn5yt.png'">
+            </ion-avatar>   
+        </ion-col>
+        <ng-template #noClick>
+            <ion-col >
+                <ion-avatar >
+                    <ion-label >{{ lend?.userB[0]?.pseudo }}</ion-label>
+                    <img [src]="lend?.userB[0]?.avatar ? lend?.userB[0]?.avatar : 'https://i.imgur.com/9HJtn5yt.png'">
+                </ion-avatar>   
+            </ion-col>
+          </ng-template>
+        <ion-col>
+          <ion-thumbnail>
+              <img src="../../../../../assets/images/arrow.png">              
+          </ion-thumbnail>
+        </ion-col>
+        <ion-col>
+          <ion-avatar>
+              <ion-label>you</ion-label>
+              <img [src]="myUser?.avatar">
+          </ion-avatar>  
+        </ion-col>           
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-text>
+              <br />{{lend?.message}}
+          </ion-text>  
+      </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-content>
+  <ion-grid>
+    <!-- <ion-row>
+      <ion-col><ion-button (click)="accept(1)">Accepter</ion-button></ion-col>
+      <ion-col><ion-button (click)="accept(0)">Refuser</ion-button></ion-col>
+    </ion-row> -->
+    <ion-row *ngIf="lend?.accepted?.ask != '1'">
+      <ion-col>
+        <ion-item>
+            <form [formGroup]="form">
+            <ion-list>
+                <ion-item color="medium">
+                  <ion-label>Votre réponse</ion-label>
+                  <ion-select  formControlName="answer" (ionChange)="accept()">
+                    <ion-select-option value="1">Accepter</ion-select-option>
+                    <ion-select-option value="0">Refuser</ion-select-option>            
+                </ion-select>
+              </ion-item>
+          </ion-list>
+            <!-- <ion-button (click)="accept()">Envoyer</ion-button> -->
+          </form>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  </ion-grid>
+  <!-- <pre>
+      {{ lend.userB[0] | json }}
+    </pre> -->
+</ion-card>
+<ng-template #noData>
+    <ion-row>
+      <ion-col>
+        <ion-text>no item found...</ion-text>
+      </ion-col>
+    </ion-row>
+  </ng-template>
+ 
 </ion-content>

@@ -3,12 +3,36 @@ import { Routes, RouterModule } from '@angular/router';
 import { FooterMenuPage } from './footer-menu.page';
 import { AppAuthGuard } from 'src/app-auth.guard';
 
-// coucou
+// TODO V2 Améliorer les routes en mettant celles qui le doivent dans les enfants
+// TOASK peut on faire des menu et sous menus pour éviter qu'ont aie toutes les routes à parcourir ou cela ne vaut pas la peine?
 const routes: Routes = [
   {
     path: 'fm',
     component: FooterMenuPage,
     children:[
+      {
+        path: 'search',
+        children: [
+          {
+            path: '',
+      //      canActivate: [ AppAuthGuard ],
+            loadChildren: () =>
+            import('src/app/features/lend/containers/search/search.module').then(m => m.SearchModule)
+          }
+        ]
+      },
+      {
+        path: 'inProgress',
+        children: [
+          {
+            path: '',
+      //      canActivate: [ AppAuthGuard ],
+            loadChildren: () =>
+            import('src/app/features/user/containers/in-progress/in-progress.module').then(m => m.InProgressPageModule)
+          }
+        ]
+      },
+
       {
         path: 'home',
         children: [
@@ -86,18 +110,7 @@ const routes: Routes = [
           }
         ]
       },
-      {
-        path: 'search',
-        children: [
-          {
-            path: '',
-      //      canActivate: [ AppAuthGuard ],
-            loadChildren: () =>
-            import('src/app/features/lend/containers/search/search.module').then(m => m.SearchModule)
-          }
-        ]
-      },
-      {
+       {
         path: 'searchResult/:name/:distance',
         children: [
           {
@@ -116,6 +129,39 @@ const routes: Routes = [
      //       canActivate: [ AppAuthGuard ],
             loadChildren: () =>
             import('src/app/features/lend/containers/ask-to-lend/ask-to-lend.module').then(m => m.AskToLendModule)
+          }
+        ]
+      },
+      {
+        path: 'oneAsk',
+        children: [
+          {
+            path: '',
+        //    canActivate: [ AppAuthGuard ],
+            loadChildren: () =>
+              import('src/app/features/lend/containers/one-ask/one-ask.module').then(m => m.OneAskPageModule)
+          }
+        ]
+      },
+      {
+        path: 'oneAsk/:lend_id',
+        children: [
+          {
+            path: '',
+        //    canActivate: [ AppAuthGuard ],
+            loadChildren: () =>
+              import('src/app/features/lend/containers/one-ask/one-ask.module').then(m => m.OneAskPageModule)
+          }
+        ]
+      },
+      {
+        path: 'oneAsk/:lend_id/:item_id',
+        children: [
+          {
+            path: '',
+        //    canActivate: [ AppAuthGuard ],
+            loadChildren: () =>
+              import('src/app/features/lend/containers/one-ask/one-ask.module').then(m => m.OneAskPageModule)
           }
         ]
       },

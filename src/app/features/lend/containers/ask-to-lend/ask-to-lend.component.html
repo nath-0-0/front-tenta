@@ -5,10 +5,11 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
+
+  <ion-card *ngIf="(item$| async) as item; else noData">
   <ion-card-header>
      <ion-card-title color="primary">                                   
-        {{ item?.title }}
+        {{ item?.name }}
     </ion-card-title>
   </ion-card-header>
   <ion-card-content>
@@ -16,19 +17,27 @@
       <ion-row>
         <ion-col size="4">
             <ion-thumbnail>
-                <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+                <img [src]="item?.image ? item?.image : 'https://i.imgur.com/YKPFuaft.png'" />
             </ion-thumbnail>   
         </ion-col>
         <ion-col>
             <ion-text>
                 {{item?.description}}<br />
-                caution : {{item?.caution}}
+                caution : {{item?.desposit}}
             </ion-text>  
         </ion-col>
       </ion-row>
     </ion-grid>
   </ion-card-content>
 </ion-card>
+
+<ng-template #noData>
+    <ion-row>
+      <ion-col>
+        <ion-text>no item found...</ion-text>
+      </ion-col>
+    </ion-row>
+  </ng-template>
 
 <ion-grid>
   <form [formGroup]="form">
@@ -65,5 +74,4 @@
     </ion-row>
   </form>
   </ion-grid>
-  <ion-button (click)="save()">Ajouter</ion-button>
-</ion-content>>
+</ion-content>
